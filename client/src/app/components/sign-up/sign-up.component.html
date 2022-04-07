@@ -1,1 +1,47 @@
-<p>sign-up works!</p>
+<div class="signIn-container">
+  <div class="col-lg-6 d-none d-lg-flex align-items-center gradient-custom-2">
+    <div class="text-white px-3 py-4 p-md-5 mx-md-4 eslogan">
+      <h2 class="mb-4">We are more than just a company</h2>
+      <p class="small mb-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+
+      <div>
+        <h4>You have an account?</h4>
+        <button class="btn btn-outline-light" (click)="this.app.redirectTo('login')">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="signIn-dark">
+    <form method="post" (ngSubmit)="submit()" [formGroup]="signForm">
+      <h2 class="visually-hidden">Sign In Form</h2>
+      <div class="illustration"><img src="assets/images/logo_transparent.png" width="150" alt=""></div>
+      <div class="mb-3">
+        <input type="nickname" class="form-control" name="nickname" placeholder="Nickname" formControlName="nickname"/>
+        <span *ngIf="signForm.get('nickname')?.touched && signForm.get('nickname')?.errors?.['required']" 
+          class="error-message">Name is required
+        </span>
+      </div>
+      <div class="mb-3">
+        <input type="name" class="form-control" name="name" placeholder="Name" formControlName="name"/>
+      </div>
+      <div class="mb-3">
+        <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email"/>
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" name="password" placeholder="Password" formControlName="password"/>
+      </div>
+      <div class="mb-3">
+        <input type="confirmPassword" class="form-control" name="confirmPassword"placeholder="Confirm Password" formControlName="confirmPassword"/>
+      </div>
+      <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Sign In</button></div>
+      <div> <button class="btn btn-lg btn-block btn-primary w-100" style="background-color: #dd4b39;" type="submit"><i
+            class="fab fa-google me-2"></i> Sign In with google</button></div>
+      <div><button class="btn btn-lg btn-block btn-primary w-100" style="background-color: #3b5998;" type="submit"><i
+            class="fab fa-facebook-f me-2"></i>Sign In with facebook</button></div>
+    </form>
+  </section>
+
+</div>

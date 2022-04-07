@@ -18,7 +18,7 @@
             <a type="button" class="search" href="buscador.html"><i class="bi bi-search"></i></a>
             <!-- <app-notifications></app-notifications> -->
             <div class="btn-group">
-                <button class="btn btn-dark signUp">Sign Up</button>
+                <button class="btn btn-dark signUp" (click)="this.app.redirectTo('signUp')">Sign Up</button>
                 <button class="btn btn-outline-light logIn" (click)="this.app.redirectTo('login')">Log in</button>
             </div>
         </div>
