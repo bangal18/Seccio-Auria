@@ -10,6 +10,8 @@ import { AppComponent } from 'src/app/app.component';
 export class SignUpComponent implements OnInit {
 
   public signForm! : FormGroup;
+  public verificationCode = false;
+
 
   constructor(private formBuilder : FormBuilder,public app : AppComponent) { }
 
@@ -18,16 +20,31 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() : any{
-    console.log(this.signForm.value)
+    this.signForm.markAllAsTouched();
+
+    if(!this.signForm.valid){
+      this.app.toastr.warning("Please, enter all required")
+      return;
+    }
+
+    this.app.petitions.saveNewUser(this.signForm.value).subscribe(data => {
+      if(!data.code){
+        this.verificationCode = true;
+        return;
+      } 
+      this.app.toastr.error(`Error, you have a blank ${data.whiteSpace} field`);
+      
+    });
+
   }
 
   initForm() : any{
     return this.formBuilder.group({
-      nickname: ['',Validators.required],
-      name : [],
-      email : [],
-      password : [],
-      confirmPassword : [],
+      nickname: ['',[Validators.required, Validators.minLength(2) ] ],
+      name : ['',[Validators.required, Validators.minLength(2)] ],
+      email : ['',[ Validators.required, Validators.email] ],
+      password : ['',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
+      confirmPassword : ['',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
     });
   }
 }

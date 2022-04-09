@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Doppio+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap'); 
 
+
 body {
   font-family: 'Rajdhani', sans-serif;   
   --form-background : radial-gradient(ellipse at bottom right,rgba(208, 208, 208, 1.0), rgba(52, 52, 52, 1.0));
