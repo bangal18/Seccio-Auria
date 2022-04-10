@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer');
+
 function sendMail(code,mail) {
-    console.log(code,mail)
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'bangalcamara2002@gmail.com',
-            pass: 'OeIgeagnb'
+            pass: ''
         }
     });
     var mensaje = `Code: ${code}`;

@@ -18,9 +18,10 @@ exports.FILTER_SANITIZE_STRING = function(params) {
 
 exports.randomVerficateCode = function () {
     let code = "";
-    for (let index = 0; index < 4; index++) {
-        let randomIndex = Math.floor((Math.random() * (9 - 0 + 1)) + 0);
-        code += randomIndex;
+    let pattern = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (let index = 0; index < 5; index++) {
+        let randomIndex = Math.floor((Math.random() * (pattern.length-1 )) + 0);
+        code += pattern.charAt(randomIndex)
     }
-    return parseInt(code) 
+    return code
 }

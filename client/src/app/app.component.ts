@@ -10,7 +10,8 @@ import { PetitionsService } from './services/petitions.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+  public title = 'client';
+  public params! : any
   constructor(
     private router: Router,
     
@@ -24,6 +25,12 @@ export class AppComponent {
 
   redirectTo(params: string) {
     this.router.navigate([`/${params}`]);
+  }
+  setParams(params:any) { this.params = params; }
+  getParams() {
+    let params = this.params;
+    // delete this.params;
+    return params;
   }
 
 }

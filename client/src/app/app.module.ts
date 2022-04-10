@@ -24,8 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { VerifyCodeComponent } from './components/sign-up/verify-code/verify-code.component';
-
-
+import { FormsModule } from '@angular/forms';
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { VerifyCodeComponent } from './components/sign-up/verify-code/verify-cod
     HomeComponent,
     ToastsComponent,
     VerifyCodeComponent,
+    StopwatchComponent,
    
   ],
   imports: [
@@ -54,7 +55,8 @@ import { VerifyCodeComponent } from './components/sign-up/verify-code/verify-cod
       progressBar : true,
     }),
     HttpClientModule,
-
+    FormsModule,
+    
   ],
   providers: [ToastsComponent],
   bootstrap: [AppComponent]
