@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastsComponent } from './components/toasts/toasts.component';
 import { ToastrService } from 'ngx-toastr';
 import { PetitionsService } from './services/petitions.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
     
     public toast: ToastsComponent,
     public toastr: ToastrService,
-    public petitions : PetitionsService
+    public petitions : PetitionsService,
+    public authPetitions : AuthService
 
   ) {
   }

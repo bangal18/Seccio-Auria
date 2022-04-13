@@ -1,18 +1,16 @@
 const { parse } = require("qs");
 
 exports.FILTER_SANITIZE_STRING = function(params) {
-    let array = [];
+    let clearParams = {};
     for (const key of params){
         let param = key.param[1].replaceAll(/\x00|<[^>]*>?/g, '');
         param = param.replaceAll('\'', '&#39;');
         param = param.replaceAll('"', '&#34;');
         if(!param) return {code : 1, whiteSpace : key.param[0]};
-        array.push({
-            key : key.param[0],
-            value : param,
-        })
+        
+        clearParams[key.param[0]] = param;
     }
-    return {code : 0, params : array };
+    return {code : 0, params : clearParams };
 }
 
 

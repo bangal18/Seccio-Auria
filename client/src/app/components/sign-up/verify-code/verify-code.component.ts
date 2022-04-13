@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Input } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
@@ -7,36 +7,31 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./verify-code.component.scss']
 })
 export class VerifyCodeComponent implements OnInit {
+  @Input() userInfo: any;
 
-  public input : any;
-  public disabledButton : boolean = true;
+  public input: any;
+  public disabledButton: boolean = true;
 
 
   constructor(
-    public app : AppComponent
+    public app: AppComponent
   ) { }
 
   ngOnInit(): void {
-   
+
   }
 
   submit(): void {
-    let result = this.app.petitions.sendCode(this.input);
-    result.subscribe(data =>{
-      console.log(data);
-      if(data.status){
-        let params = this.app.getParams();
-        let user = {
-          nickname : params[0].value,
-          name : params[1].value,
-          email : params[2].value,
-          password : params[3].value,
-          confirmPassword : params[4].value
-        }
+    let result = this.app.authPetitions.sendCode(this.input);
+    result.subscribe(data => {
 
-       this.app.petitions.saveUser(user).subscribe(data=>{
-        console.log(data)
-       });
+      if (data.status) {
+        let user = this.userInfo;
+        
+        this.app.authPetitions.saveUser(user).subscribe(data => {
+          console.log(data)
+          localStorage.setItem('token', data.token)
+        });
 
       }
     });

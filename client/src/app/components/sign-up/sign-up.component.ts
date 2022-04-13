@@ -12,7 +12,7 @@ export class SignUpComponent implements OnInit {
 
   public signForm! : FormGroup;
   public verificationCode = false;
-
+  public userInfo : any;
 
   constructor(
     private formBuilder : FormBuilder,
@@ -32,10 +32,13 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    this.app.petitions.sendUser(this.signForm.value).subscribe(data => {
+    this.app.authPetitions.sendUser(this.signForm.value).subscribe(data => {
       if(!data.code){
-        this.app.setParams(data.params);
-        this.verificationCode = true;
+        this.userInfo = data.params;
+        this.app.authPetitions.getUserByNicknameEmail(this.userInfo.nickname,this.userInfo.email).subscribe(data => {
+          console.log(data)
+        });
+        //this.verificationCode = true;
         return;
       } 
       this.app.toastr.error(`Error, you have a blank ${data.whiteSpace} field`);
@@ -46,7 +49,7 @@ export class SignUpComponent implements OnInit {
     return this.formBuilder.group({
       nickname: ['sad',[Validators.required, Validators.minLength(2) ] ],
       name : ['sad',[Validators.required, Validators.minLength(2)] ],
-      email : ['kocede5144@procowork.com',[ Validators.required, Validators.email] ],
+      email : ['nifalo3517@bamibi.com',[ Validators.required, Validators.email] ],
       password : ['ASDF1234asdf',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
       confirmPassword : ['ASDF1234asdf',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
     });

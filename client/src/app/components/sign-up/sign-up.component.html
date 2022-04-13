@@ -15,7 +15,7 @@
   </div>
 
   <section class="signIn-dark">
-    <app-verify-code *ngIf="this.verificationCode"></app-verify-code>
+    <app-verify-code *ngIf="this.verificationCode" [userInfo]="this.userInfo" ></app-verify-code>
     
     <form *ngIf="!this.verificationCode" method="post" (ngSubmit)="submit()" [formGroup]="signForm">
       <h2 class="visually-hidden">Sign In Form</h2>

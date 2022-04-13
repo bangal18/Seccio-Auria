@@ -5,7 +5,7 @@ function sendMail(code,mail) {
         service: 'gmail',
         auth: {
             user: 'bangalcamara2002@gmail.com',
-            pass: ''
+            pass: 'OeIgeagnb'
         }
     });
     var mensaje = `Code: ${code}`;

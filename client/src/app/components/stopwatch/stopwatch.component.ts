@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-stopwatch',
@@ -15,7 +16,7 @@ export class StopwatchComponent implements OnInit {
   public minutes! : string;
   public seconds! : string;
 
-  constructor() {
+  constructor(private app : AppComponent) {
     this.d = 99;
     this.ss = 0;
     this.mm = 5;
@@ -41,6 +42,7 @@ export class StopwatchComponent implements OnInit {
 
     if (`${this.minutes}:${this.seconds}` == "00:00") {
       clearInterval(this.tempsInterval);
+      this.app.redirectTo('/home');
     }
   }
 
