@@ -5,8 +5,12 @@ const modelSignUp = require('../model/signUp.model');
 const modelUserInfo = require('../model/UserInfo.model');
 const mail = require('../mail/mail');
 const jwt = require('jsonwebtoken');
-const configToken = require('../config/auth')
+const configToken = require('../config/auth');
+const bcrypt = require("bcrypt");
+
+var user;
 var code; 
+
 
 exports.registerConfigurations = async function (req, res) {
   let params = [ 
@@ -16,35 +20,39 @@ exports.registerConfigurations = async function (req, res) {
     {param : ["password", req.body.password]},
     {param : ["confirmPassword", req.body.confirmPassword]}
   ]
-
-  let data = globalFunctions.FILTER_SANITIZE_STRING(params);
-  if(!data.code) {
-    code = globalFunctions.randomVerficateCode();
-    //mail.sendMail(code,req.body.email)
-    let result = await modelUserInfo.getUserByNicknameEmail(data.params.nickname, data.params.email,(data)=>{
-      console.log(data)
-    })
-   
-  }
   
-  //res.send(data)
+  let data = globalFunctions.FILTER_SANITIZE_STRING(params);
+  if (!data.status) {res.send(data); return;}
+  
+  let validation = await modelUserInfo.getUserByNicknameEmail(data.params.nickname, data.params.email);
+  if (!validation.status) {res.send(validation); return;} 
+
+  if(data.params.password != data.params.confirmPassword) {res.send({status:0, message: "No equals passwords"}); return;};
+  
+  data.params.password = await bcrypt.hash(data.params.password,10);
+  code = globalFunctions.randomVerficateCode();
+  user = data.params;
+
+  mail.sendMail(code,data.params.email);
+  res.send(validation);
+
 }
 
 exports.checkCodeClient = function(req,res) {
   if(req.body.code == code){
-    res.status(200).send({status : 1, message : 'Valid Code'});
+    res.send({status : 1, message : 'Valid Code'});
     return;
   }
-  res.status(404).send({status : 0, message : 'Invalid Code'});
+  res.send({status : 0, message : 'Invalid Code'});
 }
 
 exports.addLogRegister = async function(req, res) {
-  let data = await modelSignUp.addUser(req.body);
+  let data = await modelSignUp.addUser(user);
 
   const token = jwt.sign({
-    name : req.body.name, 
-    email : req.body.email
+    name : user.nickname, 
+    email : user.email
   }, configToken.SECRET_TOKEN);
   
-  res.status(201).send({status : 1, message : 'Succesfuly registry', data : data, token : token});
+  res.send({status : 1, message : 'Succesfuly registry', data : data, token : token});
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Input } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { MainService } from '../../../services/main.service';
 
 @Component({
   selector: 'app-verify-code',
@@ -7,33 +7,30 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./verify-code.component.scss']
 })
 export class VerifyCodeComponent implements OnInit {
-  @Input() userInfo: any;
-
+  
   public input: any;
-  public disabledButton: boolean = true;
+  public disabledButton: boolean = false;
 
 
   constructor(
-    public app: AppComponent
+    public main: MainService
   ) { }
 
   ngOnInit(): void {
 
   }
 
-  submit(): void {
-    let result = this.app.authPetitions.sendCode(this.input);
-    result.subscribe(data => {
+  async submit() {
+    this.disabledButton = true;
+    let data = await this.main.authPetitions.sendCode(this.input);
+    if(!data.status) {
+      this.main.toastr.warning(data.message); 
+      this.disabledButton = false; return
+    };
 
-      if (data.status) {
-        let user = this.userInfo;
-        
-        this.app.authPetitions.saveUser(user).subscribe(data => {
-          console.log(data)
-          localStorage.setItem('token', data.token)
-        });
-
-      }
-    });
+    let saveUser = await this.main.authPetitions.saveUser();
+    localStorage.setItem('token', saveUser.token);
+    this.disabledButton = false;
+    this.main.redirectTo('home');
   }
 }

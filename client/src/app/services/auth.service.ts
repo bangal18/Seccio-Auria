@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { RequestsService } from './requests.service';
+
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 }
 
 @Injectable({
@@ -10,36 +12,51 @@ const httpOptions = {
 })
 export class AuthService {
   public server = "http://127.0.0.1:1000"
-  constructor(private http: HttpClient) { }
-
-  sendUser(datos:object) : Observable<any>{
-    const body = JSON.stringify(datos)
-    return this.http.post(`${this.server}/post/check/user`,body,httpOptions);
+  constructor(private http: HttpClient, private request : RequestsService) { }
+  
+  async sendUser(data: object) {
+    const body = JSON.stringify(data)
+    return new Promise<any>((resolve, reject) => {
+      this.request.post('/post/check/user',body, 
+      (data : any)=>{
+        resolve(data);
+      },
+      (err: any)=>{
+        resolve(err);
+      });
+    });
   }
 
-  sendCode(code: string) : Observable<any> {
+  async sendCode (code : string) {
     const body = JSON.stringify({code : code});
-    return this.http.post(`${this.server}/post/code`,body,httpOptions);
+    return new Promise<any>((resolve,reject)=>{
+      this.request.post('/post/code',body,
+      (data : any)=>{
+        resolve(data);
+      },
+      (err: any)=>{
+        resolve(err);
+      });
+    });
   }
 
-  saveUser(user:object): Observable <any>{
-    const body = JSON.stringify(user);
-    return this.http.post(`${this.server}/post/user`,body,httpOptions);
+  async saveUser () {
+    const body = JSON.stringify({user : null});
+    return new Promise<any>((resolve,reject)=>{
+      this.request.post('/post/user',body,
+      (data : any)=>{
+        resolve(data);
+      },
+      (err: any)=>{
+        resolve(err);
+      });
+    });
   }
 
-  getUserByNicknameEmail(email: string, nickname: string): Observable<any>{
-    const body = JSON.stringify({email: email, nickname: nickname});
-    return this.http.post(`${this.server}/chek/user`,body,httpOptions);
+
+  getUserByNicknameEmail(email: string, nickname: string): Observable<any> {
+    const body = JSON.stringify({ email: email, nickname: nickname });
+    return this.http.post(`${this.server}/chek/user`, body, httpOptions);
   }
 
-  // checkEmail(email: string) : Observable<any> {
-  //   const body = JSON.stringify({email : email});
-  //   return this.http.post(`${this.server}/post/check/email`,body,httpOptions);    
-  // }
-
-  // checkNickname(nickname: string) : Observable<any> {
-  //   const body = JSON.stringify({nickname : nickname});
-  //   return this.http.post(`${this.server}/post/check/nickname`,body,httpOptions);    
-  // }
-   
 }

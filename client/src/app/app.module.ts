@@ -50,7 +50,7 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
     ToastNotificationsModule,
     ToastrModule.forRoot({
       timeOut: 3080,
-      positionClass : 'toast-top-center',
+      positionClass : 'toast-top-right',
       preventDuplicates : true,
       progressBar : true,
     }),

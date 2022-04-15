@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppComponent } from 'src/app/app.component';
+import { MainService } from '../../services/main.service';
+// import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -12,11 +13,12 @@ export class SignUpComponent implements OnInit {
 
   public signForm! : FormGroup;
   public verificationCode = false;
+  public disabledButton = false;
   public userInfo : any;
 
   constructor(
     private formBuilder : FormBuilder,
-    public app : AppComponent,
+    public main : MainService,
 
     ) { }
 
@@ -24,32 +26,28 @@ export class SignUpComponent implements OnInit {
     this.signForm = this.initForm();
   }
 
-  submit() : any{
+  async submit() {
     this.signForm.markAllAsTouched();
-
+    this.disabledButton = true;
     if(!this.signForm.valid){
-      this.app.toastr.warning("Please, enter all required")
+      this.main.toastr.warning("Please, enter all required");
+      this.disabledButton = false;
       return;
     }
 
-    this.app.authPetitions.sendUser(this.signForm.value).subscribe(data => {
-      if(!data.code){
-        this.userInfo = data.params;
-        this.app.authPetitions.getUserByNicknameEmail(this.userInfo.nickname,this.userInfo.email).subscribe(data => {
-          console.log(data)
-        });
-        //this.verificationCode = true;
-        return;
-      } 
-      this.app.toastr.error(`Error, you have a blank ${data.whiteSpace} field`);
-    });
+    let data = await this.main.authPetitions.sendUser(this.signForm.value);
+    this.disabledButton = false;
+
+    if(!data.status){ this.main.toastr.warning(data.message); return; }
+    this.verificationCode = true;
+
   }
 
   initForm() : any{
     return this.formBuilder.group({
-      nickname: ['sad',[Validators.required, Validators.minLength(2) ] ],
-      name : ['sad',[Validators.required, Validators.minLength(2)] ],
-      email : ['nifalo3517@bamibi.com',[ Validators.required, Validators.email] ],
+      nickname: ['kahiye6206',[Validators.required, Validators.minLength(2) ] ],
+      name : ['Kahiye',[Validators.required, Validators.minLength(2)] ],
+      email : ['kahiye6206@bamibi.com',[ Validators.required, Validators.email] ],
       password : ['ASDF1234asdf',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
       confirmPassword : ['ASDF1234asdf',[ Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)] ],
     });

@@ -6,11 +6,11 @@ exports.FILTER_SANITIZE_STRING = function(params) {
         let param = key.param[1].replaceAll(/\x00|<[^>]*>?/g, '');
         param = param.replaceAll('\'', '&#39;');
         param = param.replaceAll('"', '&#34;');
-        if(!param) return {code : 1, whiteSpace : key.param[0]};
+        if(!param) return {status : 0, whiteSpace : key.param[0]};
         
         clearParams[key.param[0]] = param;
     }
-    return {code : 0, params : clearParams };
+    return {status : 1, params : clearParams };
 }
 
 
@@ -21,5 +21,7 @@ exports.randomVerficateCode = function () {
         let randomIndex = Math.floor((Math.random() * (pattern.length-1 )) + 0);
         code += pattern.charAt(randomIndex)
     }
-    return code
+    return code;
 }
+
+

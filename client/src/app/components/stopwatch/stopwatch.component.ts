@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { MainService } from '../../services/main.service';
+// import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-stopwatch',
@@ -16,7 +17,7 @@ export class StopwatchComponent implements OnInit {
   public minutes! : string;
   public seconds! : string;
 
-  constructor(private app : AppComponent) {
+  constructor(private app : MainService) {
     this.d = 99;
     this.ss = 0;
     this.mm = 5;
