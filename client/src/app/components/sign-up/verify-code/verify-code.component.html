@@ -1,0 +1,14 @@
+<div class="verify-container">
+    <h2 class=""> Verify your email address</h2>
+    <div class="illustration">
+        <img src="assets/images/logo_transparent.png" width="150" alt="" />
+    </div>
+    <div class="mb-3">
+        <input type="code" class="div-control" name="code" placeholder="Code:" maxlength="5" [(ngModel)]="this.input" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary d-block w-100" type="submit" (click)="this.submit()" 
+        [disabled]="this.disabledButton" >Send</button>
+    </div>
+   <app-stopwatch></app-stopwatch>
+</div>

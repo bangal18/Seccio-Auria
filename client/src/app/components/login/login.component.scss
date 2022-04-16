@@ -105,3 +105,10 @@
 .login-dark form .btn-primary:hover {
   background-color: #3b7ed6;
 }
+
+.error-message{
+  font-size:12px;
+  display:flex;
+  justify-content: center;
+  color:red;
+}
