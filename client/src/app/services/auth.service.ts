@@ -66,4 +66,9 @@ export class AuthService {
         });
     });
   }
+
+
+  loggedIn () : boolean {
+    return !!localStorage.getItem('token');
+  }
 }

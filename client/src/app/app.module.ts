@@ -26,6 +26,7 @@ import { Observable, of } from 'rxjs';
 import { VerifyCodeComponent } from './components/sign-up/verify-code/verify-code.component';
 import { FormsModule } from '@angular/forms';
 import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,10 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
     FormsModule,
     
   ],
-  providers: [ToastsComponent],
+  providers: [
+    ToastsComponent,
+    AuthGuard 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

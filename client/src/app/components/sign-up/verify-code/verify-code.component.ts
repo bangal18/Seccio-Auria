@@ -22,13 +22,13 @@ export class VerifyCodeComponent implements OnInit {
 
   async submit() {
     this.disabledButton = true;
-    let data = await this.main.authPetitions.sendCode(this.input);
+    let data = await this.main.authService.sendCode(this.input);
     if(!data.status) {
       this.main.toastr.warning(data.message); 
       this.disabledButton = false; return
     };
 
-    let saveUser = await this.main.authPetitions.saveUser();
+    let saveUser = await this.main.authService.saveUser();
     localStorage.setItem('token', saveUser.token);
     this.disabledButton = false;
     this.main.redirectTo('home');

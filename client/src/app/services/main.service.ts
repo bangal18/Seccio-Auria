@@ -18,7 +18,7 @@ export class MainService {
     public toast: ToastsComponent,
     public toastr: ToastrService,
     public provider : ProviderService,
-    public authPetitions : AuthService,
+    public authService : AuthService,
     public request : RequestsService,
 
   ) {

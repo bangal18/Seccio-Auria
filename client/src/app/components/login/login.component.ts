@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    let data = await this.main.authPetitions.logUser(this.loginForm.value);
+    let data = await this.main.authService.logUser(this.loginForm.value);
     if(!data.status){
       this.main.toastr.warning(data.message);
       this.disabledButton = false;

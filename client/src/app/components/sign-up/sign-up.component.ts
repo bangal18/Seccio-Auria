@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    let data = await this.main.authPetitions.sendUser(this.signForm.value);
+    let data = await this.main.authService.sendUser(this.signForm.value);
     this.disabledButton = false;
 
     if(!data.status){ this.main.toastr.warning(data.message); return; }
