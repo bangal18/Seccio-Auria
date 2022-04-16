@@ -6,7 +6,7 @@ exports.FILTER_SANITIZE_STRING = function(params) {
         let param = key.param[1].replaceAll(/\x00|<[^>]*>?/g, '');
         param = param.replaceAll('\'', '&#39;');
         param = param.replaceAll('"', '&#34;');
-        if(!param) return {status : 0, whiteSpace : key.param[0]};
+        if(!param) return {status : 0, message : `${key.param[0]} is empty`};
         
         clearParams[key.param[0]] = param;
     }

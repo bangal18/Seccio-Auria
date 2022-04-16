@@ -54,9 +54,16 @@ export class AuthService {
   }
 
 
-  getUserByNicknameEmail(email: string, nickname: string): Observable<any> {
-    const body = JSON.stringify({ email: email, nickname: nickname });
-    return this.http.post(`${this.server}/chek/user`, body, httpOptions);
+  async logUser(user : object) {
+    const body = JSON.stringify(user);
+    return new Promise<any>((resolve, reject)=>{
+      this.request.post('/post/login', body, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
   }
-
 }

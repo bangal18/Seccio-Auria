@@ -50,8 +50,7 @@ exports.addLogRegister = async function(req, res) {
   let data = await modelSignUp.addUser(user);
 
   const token = jwt.sign({
-    name : user.nickname, 
-    email : user.email
+    nickname : user.nickname, 
   }, configToken.SECRET_TOKEN);
   
   res.send({status : 1, message : 'Succesfuly registry', data : data, token : token});
