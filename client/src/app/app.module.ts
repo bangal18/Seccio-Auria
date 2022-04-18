@@ -61,7 +61,8 @@ import { AuthGuard } from './auth.guard';
   ],
   providers: [
     ToastsComponent,
-    AuthGuard 
+    AuthGuard,
+    NavbarComponent
   ],
   bootstrap: [AppComponent]
 })
