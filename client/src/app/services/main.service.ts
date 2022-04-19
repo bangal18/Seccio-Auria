@@ -6,6 +6,7 @@ import { ProviderService } from '../services/provider.service';
 import { AuthService } from '../services/auth.service';
 import { RequestsService } from '../services/requests.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class MainService {
   public title = 'client';
   public params! : any
   constructor(
-    private router: Router,
+    public router: Router,
     
     public toast: ToastsComponent,
     public toastr: ToastrService,

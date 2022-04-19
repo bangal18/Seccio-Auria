@@ -8,7 +8,7 @@ exports.getUserByNicknameEmail = async function (nickname, email) {
             let value = [nickname, email];
             
             db.query(sql, value, async (err, result) => {
-                if(err) {console.log("Error conection db") ;resolve({status: 0, message : "Error connecion"});}
+                if(err) {console.log("Error conection db") ;resolve({status: 0, message : "Error connecion"}); return;}
                 if (result.length == 0) {resolve({ status: 1, message: "Succesfuly" }); return; }
                 if (result[0].nickname == nickname) resolve({ status: 0, message: "Nickname already exist" });
                 else resolve({ status: 0, message: "Email already exist" })
@@ -40,4 +40,5 @@ exports.getUserByNikname = async function (nickname) {
     }
 
 }
+
 

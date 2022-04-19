@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter,Output  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MainService } from '../../services/main.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,16 @@ import { MainService } from '../../services/main.service';
 })
 export class LoginComponent implements OnInit {
 
+  @Output() public updateNavBar = new EventEmitter<boolean>();
+
   public loginForm! : FormGroup;
   public disabledButton : boolean = false;
 
   constructor(
     public main:MainService,
+    public navBarStatus : NavbarComponent,
     private formBuilder : FormBuilder,
+
   ) {}
 
   ngOnInit(): void {
@@ -35,16 +40,17 @@ export class LoginComponent implements OnInit {
       this.disabledButton = false;
       return;
     }
-    localStorage.setItem('token', data.token);
-    this.disabledButton = false;
-    this.main.redirectTo('home');
+    
+    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('currentUser', JSON.stringify(data.user));
 
+    location.href = 'http://localhost:4200/home'; 
   }
 
   initForm() : any{
     return this.formBuilder.group({
-      nickname: ['',[Validators.required ] ],
-      password : ['',[ Validators.required] ],
+      nickname: ['kahiye6206',[Validators.required ] ],
+      password : ['ASDF1234asdf',[ Validators.required] ],
     });
   }
 

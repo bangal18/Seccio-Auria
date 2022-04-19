@@ -29,8 +29,11 @@ export class VerifyCodeComponent implements OnInit {
     };
 
     let saveUser = await this.main.authService.saveUser();
-    localStorage.setItem('token', saveUser.token);
+    sessionStorage.setItem('token', saveUser.token);
+    sessionStorage.setItem('currentUser', JSON.stringify(saveUser.user));
     this.disabledButton = false;
-    this.main.redirectTo('home');
+    location.href = 'http://localhost:4200/home'; 
+    // this.main.redirectTo('home');
+    //iuNux
   }
 }

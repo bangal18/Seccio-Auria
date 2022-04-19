@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,26 @@ import { MainService } from '../../services/main.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public app:MainService) { }
+  
+  public navBarStatus : any;
+  public getUser : any;
+  public userPhoto : any;
+  public anonimPhoto : string = "assets/images/img-anonima.jpg";
+
+  constructor(public main:MainService) { }
 
   ngOnInit(): void {
+    this.navBarStatus = !!sessionStorage.getItem('token');
+
+    this.getUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+    this.userPhoto = this.getUser.photo ? this.getUser.photo : this.anonimPhoto
+  }
+
+
+  signOut() {
+    this.main.authService.signOut();
+    this.navBarStatus = !!sessionStorage.getItem('token');
+    this.main.redirectTo('home');
   }
 
 

@@ -23,3 +23,18 @@ btn-group{
         margin-right: 2em;
     }
 }
+
+.profile{
+    display: flex;
+    justify-content : center;
+}
+
+@media (max-width: 991px){
+   .dropstart .dropdown-menu[data-bs-popper]{
+        right:auto !important;
+        top: 3.5em !important;
+   }
+}
+
+
+

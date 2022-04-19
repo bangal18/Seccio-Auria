@@ -67,8 +67,12 @@ export class AuthService {
     });
   }
 
+  signOut(): void {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('currentUser');
+  }
 
   loggedIn () : boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 }
