@@ -9,7 +9,7 @@ exports.addLogLogin = async function (req,res){
 	if(!filter.status) { res.send(filter); return}
 	
 	let user = await modelUserInfo.getUserByNikname(filter.params.nickname);
-	if(!user.status) { res.send(user.message); return}
+	if(!user.status) { res.send(user); return}
 
 	let compare = await bcrypt.compare(filter.params.password,user.user.password);
 	if(!compare) { res.send({status : 0, message : "Invalid nickname or password"}); return;}
