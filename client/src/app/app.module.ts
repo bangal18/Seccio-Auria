@@ -27,6 +27,8 @@ import { VerifyCodeComponent } from './components/sign-up/verify-code/verify-cod
 import { FormsModule } from '@angular/forms';
 import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 import { AuthGuard } from './auth.guard';
+import { CreateNewComponent } from './components/create-new/create-new.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { AuthGuard } from './auth.guard';
     ToastsComponent,
     VerifyCodeComponent,
     StopwatchComponent,
+    CreateNewComponent,
    
   ],
   imports: [
@@ -57,6 +60,7 @@ import { AuthGuard } from './auth.guard';
     }),
     HttpClientModule,
     FormsModule,
+    AngularEditorModule 
     
   ],
   providers: [
