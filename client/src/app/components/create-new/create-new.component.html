@@ -2,10 +2,12 @@
 
 <div class="news-container">
   
-  <div class="writeNew" [formGroup]="myGroup">
-    <angular-editor formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
+  <div class="mx-auto" style="width: 1020px;">
+    <div class="writeNew" [formGroup]="myGroup">
+      <angular-editor formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
+    </div>
   </div>
-
+  
   <div class="flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
 
     <h4 style="text-align:center;">Create a new news item</h4>
@@ -25,9 +27,9 @@
           Publish
         </button>
       </div>
-
     </div> 
   </div>
+
 </div>
 
 
@@ -77,14 +79,5 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-<!-- <div class="writeNew" [formGroup]="myGroup">
-	<angular-editor formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
-</div>
- -->
 
 

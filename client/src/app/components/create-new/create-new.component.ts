@@ -65,7 +65,7 @@ export class CreateNewComponent implements OnInit {
   ngOnInit(): void {
     
     this.myGroup = this.formBuilder.group({
-      htmlContent1 : new FormControl(''),
+      htmlContent1 : new FormControl('',[Validators.required, Validators.minLength(40)]),
     });
     
     this.newsMainInfoForm = this.formBuilder.group({
@@ -95,14 +95,32 @@ export class CreateNewComponent implements OnInit {
   }
 
   async submit() {
-   if(!this.checkValues()) {
-    this.main.toastr.info("If you do not fill in the main fields, you will not be able to publish the news!");
-    this.disableButton = true;
-    return;
-   }
-      
-    console.log(this.newsMainInfoForm.value)
-    console.log(this.myGroup.value)
+    if(!this.checkValues()) {
+      this.main.toastr.info("If you do not fill in the main fields, you will not be able to publish the news!");
+      this.disableButton = true;
+      return;
+    }
+
+    if(!this.myGroup.valid){
+      this.main.toastr.error("New min length must be 40 characters.");
+      return;
+    }
+
+    let sessions = this.main.getCurrentUser()
+    let news = {
+      userId : sessions.currentUser.id,
+      title : this.newsMainInfoForm.value.title, 
+      subTitle :this.newsMainInfoForm.value.subTitle, 
+      image : this.newsMainInfoForm.value.image, 
+      newsText : this.myGroup.value.htmlContent1, 
+      tags : null
+    }
+    let data = await this.main.provider.addNew(news);
+    if(!data){
+      this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
+      return;
+    }
+    this.main.redirectTo('home');
   }
 
 

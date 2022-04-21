@@ -66,7 +66,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
   providers: [
     ToastsComponent,
     AuthGuard,
-    NavbarComponent
+    NavbarComponent,
   ],
   bootstrap: [AppComponent]
 })

@@ -23,6 +23,7 @@ exports.addLogLogin = async function (req,res){
   		message : 'Succesfuly login', 
   		token : token,
   		user : {
+  			id : user.user.id,
   			name : user.user.name,
   			nickname : user.user.nickname,
   			photo : user.user.photo,

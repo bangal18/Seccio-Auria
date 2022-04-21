@@ -35,4 +35,11 @@ export class MainService {
     // delete this.params;
     return params;
   }
+  getCurrentUser() {
+    let currentUser = {
+      token : sessionStorage.getItem('token'),
+      currentUser : JSON.parse(sessionStorage.getItem('currentUser') || '{}'),
+    }
+    return currentUser;
+  }
 }

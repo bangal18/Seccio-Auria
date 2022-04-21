@@ -10,7 +10,8 @@ const cors = require('cors');
 var router = require('./routers/routers').router; 
 
 app.use(express.static(__dirname));
-app.use(express.json());
+app.use(body_parser.json({limit: '50mb'}));
+app.use(body_parser.urlencoded({limit: '50mb', extended: true}))
 app.use(cors());
 app.use('/',router);
 
