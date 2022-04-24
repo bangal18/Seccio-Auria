@@ -1,0 +1,30 @@
+.news-container {
+	margin-top: 2em;
+  	color: #313437;
+  	background-color: #fff;
+
+  	.news {
+  		display: flex;
+  		flex-wrap: wrap;
+  		margin: auto;
+  		max-width: 90%;
+  	}
+
+}
+
+.news-container-item{
+	padding-bottom: 40px;
+
+	.news-item {
+		padding-bottom: 60px;
+  		min-height: 160px;
+	}
+}
+
+
+.icons {
+	a{
+		margin-right: 5px;
+	}
+}
+

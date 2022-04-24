@@ -20,7 +20,7 @@ router.post('/post/login', controllerLogin.addLogLogin);
 router.post('/post/news', controllerNews.addNews);
 router.post('/uploads', multer.single('photo') ,photoController.createPhoto)
 router.get('/get/news/:id', controllerNews.getNewsById);
-
+router.get('/get/getNextXNews/:index', controllerNews.getNextXNews)
 
 /*Users*/
 router.post('/get/user', controllerUserInfo.getUserByNicknameEmail);

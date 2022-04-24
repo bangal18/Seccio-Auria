@@ -30,6 +30,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     VerifyCodeComponent,
     StopwatchComponent,
     CreateNewComponent,
+
    
   ],
   imports: [
@@ -63,6 +65,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FormsModule,
     AngularEditorModule,
     ImageCropperModule,
+    InfiniteScrollModule,
   ],
   providers: [
     ToastsComponent,
