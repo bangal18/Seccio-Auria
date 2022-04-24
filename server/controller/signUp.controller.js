@@ -54,6 +54,7 @@ exports.addLogRegister = async function(req, res) {
   }, configToken.SECRET_TOKEN);
   
   user.photo = null;
+  user.id = data.lastId;
   res.send({
     status : 1, 
     message : 'Succesfuly registry', 

@@ -1,0 +1,84 @@
+
+
+<div class="news-container">
+  
+  <div class="mx-auto" style="width: 1020px;">
+    <div class="writeNew" [formGroup]="myGroup">
+      <angular-editor formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
+    </div>
+  </div>
+  
+  <div class="flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+
+    <h4 style="text-align:center;">Create a new news item</h4>
+    <h6 style="text-align:center;">Write your new</h6>
+    <hr>
+    <div class="info">
+      <div>
+        <button type="button" id="actionButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Change main information
+        </button>  
+      </div>
+      
+      <br>
+
+      <div>
+        <button type="button" class="btn btn-success" [disabled]="this.disableButton" (click)="submit()">
+          Publish
+        </button>
+      </div>
+    </div> 
+  </div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Main information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newsMainInfoForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">News Title:</label>
+            <input class="form-control" type="text" class="form-control" id="recipient-name" formControlName="title">
+             
+             <span *ngIf="newsMainInfoForm.get('title')?.touched && newsMainInfoForm.get('title')?.errors?.['required']"
+              class="error-message">*Required
+            </span>
+
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Description: </label>
+            <input class="form-control" type="text" class="form-control" id="recipient-name" formControlName="subTitle">
+
+            <span *ngIf="newsMainInfoForm.get('subTitle')?.touched && newsMainInfoForm.get('subTitle')?.errors?.['required']"
+              class="error-message">*Required
+            </span>
+          
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Cover image:</label>
+            <input class="form-control" type="file" class="form-control" id="recipient-name" formControlName="image" name="image" (change)="this.onPhotoSelected($event)">
+
+            <span *ngIf="newsMainInfoForm.get('image')?.touched && newsMainInfoForm.get('image')?.errors?.['required']"
+              class="error-message">*Required
+            </span>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveMainInfo()">Save information</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+

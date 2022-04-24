@@ -24,4 +24,9 @@ exports.randomVerficateCode = function () {
     return code;
 }
 
+exports.getDateTypeSQL = function () {
+    let ts = new Date();
+    ts.setMinutes(ts.getMinutes() - ts.getTimezoneOffset());
+    return ts.toISOString().slice(0, 19).replace('T', ' ');
 
+}

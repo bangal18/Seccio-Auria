@@ -17,6 +17,8 @@ export class StopwatchComponent implements OnInit {
   public minutes! : string;
   public seconds! : string;
 
+  //public dateTime! : any;
+
   constructor(private app : MainService) {
     this.d = 99;
     this.ss = 0;
