@@ -5,7 +5,6 @@ const configToken = require('../config/auth');
 const bcrypt = require("bcrypt");
 const multer  = require('multer')
 
-
 exports.addNews = async function (req, res) {
 	//Validar inyección de codigo 
 	let data = await modelNews.addNews(req.body)
@@ -14,17 +13,10 @@ exports.addNews = async function (req, res) {
 
 exports.getNewsById = async function (req,res) {
 
+	let data = await modelNews.getNewsById(req.params.id);
+	res.send(data)
 }
 
 
-// const imageStorage = multer.diskStorage({
-//     // Destination to store image     
-//     destination: 'images', 
-//       filename: (req, file, cb) => {
-//       cb(null, file.fieldname + '_' + Date.now() 
-//          + path.extname(file.originalname))
-//         // file.fieldname is name of the field (image)
-//         // path.extname get the uploaded file extension
-//     }
-// });
+
 

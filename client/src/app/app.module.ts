@@ -29,6 +29,7 @@ import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 import { AuthGuard } from './auth.guard';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -60,8 +61,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     }),
     HttpClientModule,
     FormsModule,
-    AngularEditorModule 
-    
+    AngularEditorModule,
+    ImageCropperModule,
   ],
   providers: [
     ToastsComponent,

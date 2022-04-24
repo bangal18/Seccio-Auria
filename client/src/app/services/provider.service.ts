@@ -18,7 +18,7 @@ export class ProviderService {
   async addNew(news:any) {
 
     const body = JSON.stringify(news);
-    
+
     return new Promise<any>((resolve, reject)=>{
       this.request.post('/post/news', body, 
         (data : any)=>{
@@ -30,4 +30,36 @@ export class ProviderService {
     });
 
   }
+
+
+  async getNewsById(id:any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/news/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async sendMainInfo(photo : File) {
+    const fd = new FormData();
+    fd.append('photo',photo);
+
+    return new Promise<any>((resolve, reject)=>{
+      this.request.formData('/uploads',fd,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+   
+
+  }
+
+  
 }

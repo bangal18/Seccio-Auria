@@ -22,6 +22,22 @@ exports.addNews = function (news) {
 }
 
 
-exports.getNews = function () {
-	
+exports.getNewsById = function (id) {
+	try{
+        return new Promise ((resolve, reject)=>{
+        	let date = globalFunctions.getDateTypeSQL();
+
+            let sql = "SELECT * FROM news WHERE id = ?";
+        	let values = [id];
+            connection.query(sql, values, function (err, result,fields){
+                if(err){ resolve({staus : 0, message : "Error database"}); return;}
+                resolve( { status: 1, content : result } );
+            });
+        });
+    
+    }
+    catch(err){
+        console.log(err)
+    }
+
 }

@@ -4,6 +4,11 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MainService } from '../../services/main.service';
 
 import * as $ from "jquery";
+
+interface HtmlInputEvent extends Event {
+  target : HTMLInputElement & EventTarget;
+}
+
 @Component({
   selector: 'app-create-new',
   templateUrl: './create-new.component.html',
@@ -13,7 +18,8 @@ export class CreateNewComponent implements OnInit {
   public myGroup! : FormGroup;
   public newsMainInfoForm! : FormGroup;
   public disableButton = true;
-
+  public file! : File;
+ 
   public editorConfig: AngularEditorConfig = {
       editable: true,
       spellcheck: true,
@@ -77,6 +83,17 @@ export class CreateNewComponent implements OnInit {
     $("#actionButton").click();
   }
 
+  onPhotoSelected(event : any) : void {
+    if(event.target.files && event.target.files[0]){
+      this.file = <File> event.target.files[0];     
+    }
+  }
+  // async upLoadMainInfo(){
+  //   let img = this.file;
+  //   let data = await this.main.provider.sendMainInfo(this.file);
+   
+  // }
+
   saveMainInfo(){
     if(!this.checkValues()){
       this.main.toastr.info("If you do not fill in the main fields, you will not be able to publish the news!");
@@ -106,12 +123,13 @@ export class CreateNewComponent implements OnInit {
       return;
     }
 
-    let sessions = this.main.getCurrentUser()
+    let sessions = this.main.getCurrentUser();
+    let photo = await this.main.provider.sendMainInfo(this.file);
     let news = {
       userId : sessions.currentUser.id,
       title : this.newsMainInfoForm.value.title, 
       subTitle :this.newsMainInfoForm.value.subTitle, 
-      image : this.newsMainInfoForm.value.image, 
+      image : photo.message,
       newsText : this.myGroup.value.htmlContent1, 
       tags : null
     }
