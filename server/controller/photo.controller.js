@@ -6,7 +6,3 @@ exports.createPhoto = function (req, res ) {
 	res.send({status :1 , message : req.file.path})
 }
 
-exports.getPhoto = function (req, res) {
-
-
-}

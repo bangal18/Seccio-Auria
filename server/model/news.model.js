@@ -1,6 +1,6 @@
 const connection = require('../config/db').connection;
 const globalFunctions = require('../global/globalFunctions');
-const NEXT_X_NEWS = 3;
+const NEXT_X_NEWS = 4;
 
 exports.addNews = function (news) {
     try{

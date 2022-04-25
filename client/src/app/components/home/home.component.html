@@ -1,3 +1,36 @@
+ <div class="hgroup">
+	<h1>Top News</h1>
+</div>
+
+<!-- <div class="card mb-3 noticies">
+	<div class="row g-1">
+	    <div class="col-md-4" >
+	        <img src="assets/images/head-news.jpg" class="img-fluid rounded-start" alt="...">
+	    </div>
+    	<div class="col-md-8">
+		    <div class="card-body">
+		        <h5 class="card-title">La Xavineta</h5>
+		        <div class="acount-content">
+		            <img src="img/xavineta.jpg" alt="">
+		            <span>FC Barcelona</span>
+		        </div>
+		        <p class="card-text">
+		            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+		            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, unde aliquid dolorem ut nemo culpa laboriosam autem ad, sapiente perspiciatis similique itaque? Soluta quo, exercitationem modi ipsum nihil cupiditate. Vel!
+		        </p>
+		        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		        <div class="icons">
+		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
+		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-bookmarks" style="color:black"></i></a>
+		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-share" style="color:black"></i></a>
+		        </div>
+		        
+		    </div>
+    	</div>
+	</div>
+</div>
+ -->
+
 <div class="news-container">
 	<div class="news">
 		<div class="row news-container-item" infiniteScroll
@@ -5,23 +38,33 @@
       			[infiniteScrollThrottle]="50"
       			(scrolled)="this.onScroll()">
 		
-			<div *ngFor="let n of this.news;" class="col-sm-6 news-item">
+
+			<div *ngFor="let n of this.news;" class="col-md-6 news-item">
+
 				<div class="row">
 					<div class="col-md-6 col-lg-5 main-cover-container">
-						<img type="button" [src]="'http://localhost:1000/' + n.main_cover" class="img img-fluid">						
+						<img type="button" [src]="'http://localhost:1000/' + n.main_cover" class="img">						
 					</div>
-					<div class="col">
+					<div class="col-lg-6">
 						<h3 class="main-title">{{n.news_title}}</h3>
 						<p class="main-description">{{n.subtitle}}</p>
 						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-						
+						 <div class="icons">
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi icons bi-bookmarks" style="color:black"></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi icons bi-share" style="color:black"></i></a>
+                        </div>
+                        <div class="acount-content">
+				            <img src="assets/images/Camera.jpg" alt="">
+				            <span>FC Barcelona</span>
+		        		</div>
 					</div>
 				</div>
-			</div>
 
+			</div>
+			
 
 			
-			<div  [style.display]="this.loading ? 'flex' : 'none'"> 
+			<div class="justify-content-center" [style.display]="this.loading ? 'flex' : 'none'"> 
 		        <div class="spinner-border text-primary" role="status">
 		          <span class="visually-hidden">Loading...</span>
 		        </div>
