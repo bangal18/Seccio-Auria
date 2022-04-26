@@ -14,7 +14,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToastsComponent } from './components/toasts/toasts.component';
-
+import { ProfileComponent } from './components/profile/profile.component';
+import { ErrorComponent } from './components/error/error.component';
 
 /*Moduls*/
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +31,8 @@ import { AuthGuard } from './auth.guard';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     VerifyCodeComponent,
     StopwatchComponent,
     CreateNewComponent,
+    ProfileComponent,
+    ErrorComponent,
 
    
   ],
@@ -65,7 +69,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FormsModule,
     AngularEditorModule,
     ImageCropperModule,
-    InfiniteScrollModule,
   ],
   providers: [
     ToastsComponent,

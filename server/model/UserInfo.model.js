@@ -38,7 +38,45 @@ exports.getUserByNikname = async function (nickname) {
     }catch(error){
         console.log(error);
     }
-
 }
+
+exports.getFollowers = async function (id) {
+    try{
+        return new Promise( (resolve, reject) => {
+
+            let sql = "SELECT COUNT(*) AS total FROM followers WHERE user_id = ? "
+            let value = [id];
+
+            db.query(sql,value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+
+    }
+}
+
+exports.getFollowing = async function (id) {
+    try{
+        return new Promise( (resolve, reject) => {
+
+            let sql = "SELECT COUNT(*) AS total FROM followers WHERE follower_id = ? "
+            let value = [id];
+
+            db.query(sql,value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+
+    }
+}
+
 
 

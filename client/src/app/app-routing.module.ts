@@ -6,7 +6,9 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
 import { SearhComponent } from './components/searh/searh.component';
-import { CreateNewComponent } from './components/create-new/create-new.component'
+import { CreateNewComponent } from './components/create-new/create-new.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ErrorComponent } from './components/error/error.component';
 
 //Guard
 import { AuthGuard } from './auth.guard';
@@ -17,6 +19,9 @@ const routes: Routes = [
   {path : 'signUp', component: SignUpComponent},
   {path : 'searh', component: SearhComponent, canActivate : [AuthGuard]},
   {path : 'create-new', component: CreateNewComponent, canActivate : [AuthGuard]},
+  {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
+  {path : 'error404', component : ErrorComponent},
+  {path : ':username', component : ProfileComponent},
 ];
 
 @NgModule({

@@ -31,7 +31,6 @@ export class ProviderService {
 
   }
 
-
   async getNewsById(id:any) {
     return new Promise<any>((resolve, reject)=>{
       this.request.get(`/get/news/${id}`,
@@ -59,12 +58,9 @@ export class ProviderService {
     });
   }
 
-
-  async loadNextByNews(lastId : number) {
-    
-
-    return new Promise<any>((resolve, reject)=>{
-      this.request.get(`/get/getNextXNews/${lastId}`,
+  async getProfile (username:string) {
+    return new Promise<any>((resolve, reject) => {
+      this.request.get(`/get/profile/${username}`, 
         (data : any)=>{
           resolve(data);
         },
@@ -72,10 +68,41 @@ export class ProviderService {
           resolve(err);
         });
     });
-
-
   }
 
+  async getUserProfile (username:string) {
+    return new Promise<any>((resolve, reject) => {
+      this.request.get(`/get/${username}`, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
 
-  
+  async getFollowers (id:number) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/followers/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async getFollowing (id: number) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/followings/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
 }
