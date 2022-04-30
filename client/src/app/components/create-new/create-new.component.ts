@@ -85,7 +85,10 @@ export class CreateNewComponent implements OnInit {
 
   onPhotoSelected(event : any) : void {
     if(event.target.files && event.target.files[0]){
-      this.file = <File> event.target.files[0];     
+      this.file = <File> event.target.files[0];
+      console.log(event.target.files[0])
+      console.log("---")   
+      console.log(this.file);  
     }
   }
   // async upLoadMainInfo(){
