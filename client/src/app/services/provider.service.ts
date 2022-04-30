@@ -70,6 +70,18 @@ export class ProviderService {
     });
   }
 
+  async getUserById(id:string) {
+    return new Promise<any>((resolve, reject) =>{
+      this.request.get(`/get/settings/${id}`, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
   async getUserProfile (username:string) {
     return new Promise<any>((resolve, reject) => {
       this.request.get(`/get/${username}`, 
@@ -97,6 +109,19 @@ export class ProviderService {
   async getFollowing (id: number) {
     return new Promise<any>((resolve, reject)=>{
       this.request.get(`/get/followings/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async updateProfile (user:any) {
+    const body = JSON.stringify(user);
+    return new Promise<any>((resolve, reject)=>{
+      this.request.put(`/put/settings/update`,body,
         (data : any)=>{
           resolve(data);
         },

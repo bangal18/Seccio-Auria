@@ -5,17 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { FooterComponent } from './component/footer/footer.component';
 
-/*Components*/
-import { FooterComponent } from './components/footer/footer.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { SearhComponent } from './components/searh/searh.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { HomeComponent } from './components/home/home.component';
-import { ToastsComponent } from './components/toasts/toasts.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { ErrorComponent } from './components/error/error.component';
 
 /*Moduls*/
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +20,22 @@ import { AuthGuard } from './auth.guard';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
+
+
+
+/*Components*/
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { SearhComponent } from './components/searh/searh.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HomeComponent } from './components/home/home.component';
+import { ToastsComponent } from './components/toasts/toasts.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ErrorComponent } from './components/error/error.component';
+import { SettingsComponent } from './components/settings/settings.component';
+
 
 
 
@@ -50,6 +55,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     CreateNewComponent,
     ProfileComponent,
     ErrorComponent,
+    SettingsComponent,
 
    
   ],

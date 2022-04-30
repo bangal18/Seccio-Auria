@@ -27,6 +27,12 @@ router.get('/get/profile/:username', controllerUserInfo.getUserByNikname);
 router.get('/get/followers/:id', controllerUserInfo.getFollowers)
 router.get('/get/followings/:id',  controllerUserInfo.getFollowing);
 router.get('/get/:username',controllerUserInfo.getUserByNikname);
+
+/*Settings*/
+router.get('/get/settings/:id', controllerUserInfo.getUserById);
+router.put('/put/settings/update', controllerUserInfo.updateUser)
+
+
 /*Users*/
 router.post('/get/user', controllerUserInfo.getUserByNicknameEmail);
 

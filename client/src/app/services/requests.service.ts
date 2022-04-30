@@ -8,7 +8,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RequestsService {
-  
+
   public server = "http://127.0.0.1:1000";
   constructor(private http: HttpClient) {}
   
@@ -28,6 +28,19 @@ export class RequestsService {
   public get (url:string, callback : Function, callbackError : Function) {
 
     this.http.get<any>(this.server+url,httpOptions).subscribe({
+      next : (data:any) => {
+        callback(data);
+      },
+      error : (error: any) =>{
+        callbackError(error);
+      }
+    });
+  }
+
+
+  public put (url:string, body : string , callback : Function, callbackError : Function) {
+
+    this.http.put<any>(this.server+url,body,httpOptions).subscribe({
       next : (data:any) => {
         callback(data);
       },

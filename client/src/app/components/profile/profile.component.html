@@ -1,0 +1,64 @@
+<div *ngIf="this.loading" class="card-body">
+	<div class="row card-container">
+		<div class="col-md-4 border-md-right border-light text-center">
+			<img class="img-fluid rounded-circle rounded" [src]="'http://localhost:1000/' + this.user.user.photo" alt="Image description" width="84">
+
+			<h2 class="mb-2">{{this.user?.user.nickname}}</h2>
+			<h5 class="text-muted mb-4">{{this.user?.user.name}}</h5>
+
+			<ul class="list-inline mb-4">
+				<li class="list-inline-item mr-3">
+					<a class="link-muted" href="#!">
+						<i class="fab fa-facebook"></i>
+					</a>
+				</li>
+				<li class="list-inline-item mr-3">
+					<a class="link-muted" href="#!">
+						<i class="fab fa-twitter"></i>
+					</a>
+				</li>
+				<li class="list-inline-item mr-3">
+					<a class="link-muted" href="#!">
+						<i class="fab fa-slack"></i>
+					</a>
+				</li>
+				<li class="list-inline-item">
+					<a class="link-muted" href="#!">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+				</li>
+			</ul>
+
+			<div *ngIf="this.fButton" class="mb-3">
+				<a class="btn btn-primary mb-2" href="#!">Follow</a>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<h3 class="card-title">About me</h3>
+			<p class="mb-5 font-weight-light">{{this.user?.user.about_me}}</p>
+
+			<div class="row">
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="h3 mb-3">Followers</h4>
+
+					<div class="mb-1">
+						<span class="h1 font-weight-light text-muted">{{this.followers?.data.total}}</span>
+					</div>
+				</div>
+
+				<div class="col-lg-8">
+					<h4 class="h3 mb-3">Following</h4>
+					<div class="mb-1">
+						<span class="h1 font-weight-light text-muted">{{this.followings?.data.total}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="justify-content-center loading" [style.display]="this.loading ? 'none' : 'flex'"> 
+	<div class="spinner-border text-primary" role="status">
+	  <span class="visually-hidden">Loading...</span>
+	</div>
+</div>
