@@ -1,0 +1,140 @@
+.img-result{
+	width:80px;
+    height:80px;
+    border-radius:160px;
+}
+
+.cropper{
+	width:480px;
+ 
+    display: flex;
+    justify-content:center;
+}
+
+.modal-button{
+	margin: 1vh;
+	border-radius:20px;
+}
+
+.input{
+	background: none;
+	border: none;
+	color:inherit;
+	border-bottom: 1px solid #393939;
+	width: 40%;
+	margin: 1em;
+	outline:none;
+}
+
+.about_me{
+    background: none;
+    border: none;
+    border: 1px solid #282D32;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+}
+
+label{
+	font-size:10px;
+	color:grey;
+}
+
+/***********************/
+
+.changePassword{
+	border: 1px solid black;
+}
+
+/**********************/
+.changeProfile-dark {
+    /* width:450px; */
+    width: 550px;
+    /* background: #f5f6f6 url(img/2062162.jpg); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.changeProfile-dark form {
+    margin: 2em;
+    background-color: rgb(249, 249, 249);
+    box-shadow:  12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+    border: 1px solid rgba(0, 0, 0, .24);
+    padding: 40px;
+    border-radius: 8px;
+
+
+    color:#282D32;
+    /*box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);*/
+}
+
+.changeProfile-dark .illustration {
+    text-align: center;
+    padding: 15px 0 20px;
+    font-size: 100px;
+    color: #2980ef;
+}
+
+.changeProfile-dark form .form-control {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #282D32;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+
+}
+
+.changeProfile-dark form .btn-primary {
+    background: #214a80;
+    border: none;
+    border-radius: 4px;
+    padding: 11px;
+    box-shadow: none;
+    margin-top: 26px;
+    text-shadow: none;
+    outline: none;
+}
+
+.changeProfile-dark form .btn-primary:hover,
+.changeProfile-dark form .btn-primary:active {
+    background: #214a80;
+    outline: none;
+}
+
+.changeProfile-dark form .forgot {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+.changeProfile-dark form .forgot:hover,
+.changeProfile-dark form .forgot:active {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.changeProfile-dark form .btn-primary:hover {
+    background-color: #3b7ed6;
+}
+
+
+@media(max-width:536px){
+	.changeProfile-dark{
+		margin: 0;
+	}
+	.changeProfile-dark form{
+		margin: 0;
+		box-shadow: none;
+	}
+}
+
+.btn-primary{
+	background: #214a80;
+}

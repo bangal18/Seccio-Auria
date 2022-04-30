@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-center">
+	<section class="changeProfile-dark" >
+		<!-- <h2 class="visually d-flex justify-content-center">Settings</h2> -->
+		<form (submit)="this.submit()" [formGroup]="settingForm">
+			<div  class="col-md-12 border-md-right border-light text-center">
+				<img class="img-fluid rounded-circle rounded" [src]="'http://localhost:1000/' + this.user?.user.photo" alt="Image description" width="84">
+			</div>
+			<div class="mb-3 d-flex justify-content-center">
+				<button type="button" id="actionButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					Change photo
+				</button>  
+			</div>
+			<div  class="mb-3">
+				<label>Nickname:</label>
+				<input value="{{this.user?.user.nickname}}" type="nickname" class="form-control" name="nickname" placeholder="Nickname" formControlName="nickname" />
+			</div>
+
+			<div class="mb-3">
+				<label>Name:</label>
+				<input value="{{this.user?.user.name}}" type="name" class="form-control" name="name" placeholder="Name" formControlName="name"/>
+			</div>
+
+			<div  class="mt-4">
+				<label>About me:</label>
+				<textarea rows="5" class="form-control" class="w-100 about_me" formControlName="about_me" value="{{this.user?.user.about_me}}"></textarea>
+			</div>
+
+			<div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" [disabled]="this.disabledButton"
+				>Save</button>
+			</div>
+			<hr>
+			<div class="mb-3"><button class="btn btn-secondary d-block w-100" type="submit" 
+				>Change password</button>
+			</div>
+		</form>
+	</section>
+</div>
+
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-flex justify-content-center">
+				<h5 class="modal-title" id="exampleModalLabel">Change Photo</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div>
+
+			
+				<div class="d-flex justify-content-center">
+					<input type="file" (change)="fileChangeEvent($event)" />
+				</div>
+			
+
+				<div class="d-flex justify-content-center">
+					<image-cropper class="cropper"
+					[imageChangedEvent]="imageChangedEvent"
+					[maintainAspectRatio]="true"
+					[aspectRatio]="2 / 2"
+					format="png"
+					(imageCropped)="imageCropped($event)"
+					(imageLoaded)="imageLoaded()"
+					(cropperReady)="cropperReady()"
+					(loadImageFailed)="loadImageFailed()"
+					[roundCropper]="true"
+					></image-cropper>
+				</div>
+
+				<div class="d-flex justify-content-center">
+					<img class="img-result" [src]="!this.hiddenImgView ? croppedImage : 'http://localhost:1000/' + this.user.user.photo" />					
+				</div>
+
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<button type="button" data-bs-dismiss="modal" class="btn btn-primary modal-button" (click)="this.savePhoto()">
+					Save Photo
+				</button>  
+			</div>
+			<div class="d-flex justify-content-center">
+				<button type="button" data-bs-dismiss="modal" class="btn btn-danger modal-button">
+					Cancel
+				</button>  
+			</div>
+		</div>
+	</div>
+</div>
