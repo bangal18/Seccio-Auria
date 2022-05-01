@@ -1,5 +1,6 @@
 const connection = require('../config/db').connection;
 const globalFunctions = require('../global/globalFunctions');
+const NEXT_X_NEWS = 3;
 
 exports.addNews = function (news) {
     try{
@@ -40,4 +41,20 @@ exports.getNewsById = function (id) {
         console.log(err)
     }
 
+}
+
+exports.getNextXNews = function (index) {
+    try{
+        return new Promise((resolve, reject) =>{
+            let sql = `SELECT * FROM news LIMIT ?,?`;
+            let values = [index, NEXT_X_NEWS];
+            connection.query(sql, values, function(err, result){
+                 if(err){ resolve({staus : 0, message :err}); return;}
+                resolve( { status: 1, content : result } );
+            })
+        })
+
+    }catch(err){
+        console.log(err)
+    }
 }

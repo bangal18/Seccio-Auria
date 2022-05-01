@@ -168,4 +168,20 @@ export class ProviderService {
         });
     })
   }
+
+  async loadNextByNews(lastId : number) {
+    
+
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/getNextXNews/${lastId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+
+
+  }
 }
