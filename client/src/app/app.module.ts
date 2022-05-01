@@ -20,7 +20,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 /*Components*/
@@ -75,6 +75,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     FormsModule,
     AngularEditorModule,
     ImageCropperModule,
+    InfiniteScrollModule,
   ],
   providers: [
     ToastsComponent,
