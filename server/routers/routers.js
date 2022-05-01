@@ -27,6 +27,10 @@ router.get('/get/profile/:username', controllerUserInfo.getUserByNikname);
 router.get('/get/followers/:id', controllerUserInfo.getFollowers)
 router.get('/get/followings/:id',  controllerUserInfo.getFollowing);
 router.get('/get/:username',controllerUserInfo.getUserByNikname);
+router.get('/get/isFollowing/:idCurrentUser/:idUser', controllerUserInfo.isFollowing);
+router.post('/post/follow/', controllerUserInfo.follow)
+router.delete('/delete/unfollow/:user_id/:follower_id', controllerUserInfo.unfollow);
+
 
 /*Settings*/
 router.get('/get/settings/:id', controllerUserInfo.getUserById);

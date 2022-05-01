@@ -50,6 +50,19 @@ export class RequestsService {
     });
   }
 
+  public delete (url:string, callback : Function, callbackError : Function) {
+
+    this.http.delete<any>(this.server+url,httpOptions).subscribe({
+      next : (data:any) => {
+        callback(data);
+      },
+      error : (error: any) =>{
+        callbackError(error);
+      }
+    });
+  }
+
+
   public formData (url:string, body : FormData, callback : Function, callbackError : Function){
     var httpOptionsFormData = {
       headers: new HttpHeaders({ })
