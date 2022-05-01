@@ -56,13 +56,13 @@
 
         <div class="dropdown dropstart profile ">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img [src]="this.userPhoto" class="rounded-circle rounded">
+            <img  [src]="'http://localhost:1000/' + this.getUser.photo" class="rounded-circle rounded">
           </a>
           
           <ul class="dropdown-menu" aria-labelledby="dropdownUser1" style="">
             <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('create-new')">Create a new</a></li>
-            <li><a class="dropdown-item" >Settings</a></li>
-            <li><a class="dropdown-item" >Profile</a></li>
+            <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('settings')">Settings</a></li>
+            <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('profile')">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" role="button" (click)="this.signOut()">Sign out</a></li>
           </ul>

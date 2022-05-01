@@ -18,5 +18,10 @@ exports.getNewsById = async function (req,res) {
 }
 
 
+exports.getNextXNews = async function (req, res ) {
+	let id = parseInt(req.params.index)
+	let data = await modelNews.getNextXNews(id);
+	res.send(data)
 
+}
 
