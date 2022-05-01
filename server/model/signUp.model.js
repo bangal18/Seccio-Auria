@@ -4,7 +4,7 @@ exports.addUser = function (user) {
     try{
         return new Promise ((resolve, reject)=>{
             let sql = "INSERT INTO users (role_id, name, nickname, photo ,email, password) VALUES (?,?,?,?,?,?)";
-            let values = [2,user.name,user.nickname,null,user.email,user.password]
+            let values = [2,user.name,user.nickname,user.photo,user.email,user.password]
         
             connection.query(sql, values, function (err, result,fields){
                 if(err){ resolve({staus : 0, message : "Error database"}); return;}

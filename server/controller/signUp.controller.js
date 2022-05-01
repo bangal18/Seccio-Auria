@@ -32,6 +32,7 @@ exports.registerConfigurations = async function (req, res) {
   data.params.password = await bcrypt.hash(data.params.password,10);
   code = globalFunctions.randomVerficateCode();
   user = data.params;
+  user.photo = 'uploads/default.jpg';
 
   mail.sendMail(code,data.params.email);
   res.send(validation);
@@ -53,7 +54,6 @@ exports.addLogRegister = async function(req, res) {
     nickname : user.nickname, 
   }, configToken.SECRET_TOKEN);
   
-  user.photo = null;
   user.id = data.lastId;
   res.send({
     status : 1, 

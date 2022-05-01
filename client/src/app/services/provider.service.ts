@@ -31,7 +31,6 @@ export class ProviderService {
 
   }
 
-
   async getNewsById(id:any) {
     return new Promise<any>((resolve, reject)=>{
       this.request.get(`/get/news/${id}`,
@@ -59,12 +58,9 @@ export class ProviderService {
     });
   }
 
-
-  async loadNextByNews(lastId : number) {
-    
-
-    return new Promise<any>((resolve, reject)=>{
-      this.request.get(`/get/getNextXNews/${lastId}`,
+  async getProfile (username:string) {
+    return new Promise<any>((resolve, reject) => {
+      this.request.get(`/get/profile/${username}`, 
         (data : any)=>{
           resolve(data);
         },
@@ -72,10 +68,104 @@ export class ProviderService {
           resolve(err);
         });
     });
-
-
   }
 
+  async getUserById(id:string) {
+    return new Promise<any>((resolve, reject) =>{
+      this.request.get(`/get/settings/${id}`, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
 
-  
+  async getUserProfile (username:string) {
+    return new Promise<any>((resolve, reject) => {
+      this.request.get(`/get/${username}`, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async getFollowers (id:number) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/followers/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async getFollowing (id: number) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/followings/${id}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async isFollowing(userId : any, followerId : any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/isFollowing/${userId}/${followerId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async follow(userId : number, followerId : number){
+    const body = JSON.stringify({userId : userId, followerId : followerId});
+
+    return new Promise<any>((resolve, reject)=>{
+      this.request.post('/post/follow', body, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async unFollow (userId : number, followerId : number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.delete(`/delete/unFollow/${userId}/${followerId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async updateProfile (user:any) {
+    const body = JSON.stringify(user);
+    return new Promise<any>((resolve, reject)=>{
+      this.request.put(`/put/settings/update`,body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
 }

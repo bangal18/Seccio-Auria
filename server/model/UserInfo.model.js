@@ -38,7 +38,155 @@ exports.getUserByNikname = async function (nickname) {
     }catch(error){
         console.log(error);
     }
+}
+
+
+exports.getUserById = async function (id) {
+    try{
+        return new Promise((resolve, reject) => {
+
+            let sql = "SELECT * FROM users WHERE id = ?";
+            let value = [id];
+            
+            db.query(sql, value, async (err, result) => {
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                if (result.length == 0) {resolve({ status: 0, message: "Nickname or password incorrect" }); return; }
+                resolve({ status: 1, user : result[0] });
+            });
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+exports.getFollowing = async function (id) {
+    try{
+        return new Promise( (resolve, reject) => {
+
+            let sql = "SELECT COUNT(*) AS total FROM followers WHERE user_id = ? "
+            let value = [id];
+
+            db.query(sql,value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+
+    }
+}
+
+exports.getFollowers = async function (id) {
+    try{
+        return new Promise( (resolve, reject) => {
+
+            let sql = "SELECT COUNT(*) AS total FROM followers WHERE follower_id = ? "
+            let value = [id];
+
+            db.query(sql,value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+
+    }
+}
+
+exports.follow = function (user_id, follower_id){
+    try{
+        return new Promise( (resolve, reject) => {
+            let sql = "INSERT INTO followers (user_id,follower_id) VALUES (?,?)";
+            let values = [user_id, follower_id];
+        
+            db.query(sql,values, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+        console.log(error);
+    }
 
 }
 
+exports.unfollow = function (user_id, follower_id){
+
+    try{
+        return new Promise( (resolve, reject) => {
+            let sql = "DELETE FROM followers WHERE user_id = ? AND follower_id = ?";
+            let values = [user_id, follower_id];
+
+            db.query(sql,values, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result[0] });
+            });
+
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
+exports.isFollowing = async function(user_id, follower_id){
+    return new Promise( (resolve, reject) => {
+
+        let sql = "SELECT COUNT(*) AS total FROM followers WHERE user_id = ? AND follower_id = ? "
+        let value = [user_id,follower_id];
+
+        db.query(sql,value, async (err, result)=>{
+            if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
+            resolve({ status: 1, data : result[0] });
+        });
+
+    });
+}
+
+
+exports.updateUser = async function (user) {
+    try{
+
+        let sql = "UPDATE users SET name = ?, nickname = ?, photo = ? ,about_me = ? WHERE id = ?";
+        let values = [user.name, user.nickname, user.photo, user.about_me, user.id];
+
+        return new Promise( (resolve, reject) => {
+            db.query(sql, values, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status: 0, message:"Error conection db"});}
+                // console.log(result)
+                resolve({ status: 1});
+            });
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
+exports.userExists = async function (nickname) {
+    try{
+        let sql = "SELECT nickname FROM users WHERE nickname = ?";
+        let value = [nickname];
+
+        return new Promise( (resolve, reject) => {
+
+            db.query(sql, value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status: 0, message:"Error conection db"});}
+                resolve({ status: 1, data : result });
+            });
+        });
+
+    }catch(error){
+
+    }
+}
 
