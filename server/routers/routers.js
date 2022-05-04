@@ -29,6 +29,8 @@ router.get('/get/followers/:id', controllerUserInfo.getFollowers)
 router.get('/get/followings/:id',  controllerUserInfo.getFollowing);
 router.get('/get/:username',controllerUserInfo.getUserByNikname);
 router.get('/get/isFollowing/:idCurrentUser/:idUser', controllerUserInfo.isFollowing);
+router.get('/get/search/:nickname', controllerUserInfo.getUsersSearch);
+router.get('/get/searchByTag/:tagId/:index', controllerUserInfo.getUserByTag)
 router.post('/post/follow/', controllerUserInfo.follow)
 router.delete('/delete/unfollow/:user_id/:follower_id', controllerUserInfo.unfollow);
 

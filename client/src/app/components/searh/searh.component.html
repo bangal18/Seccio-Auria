@@ -1,1 +1,103 @@
-<p>searh works!</p>
+<div class="container-searh" >
+  <div class="hgroup">
+    <h1>Search your news chanels</h1>
+    <h2>From music news, games, actuality, here you find anything</h2>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <!-- <input type="checkbox" id="check"> -->
+      <div class="search-box">
+        <input type="text" #inputSearch  placeholder="Type here..." [(ngModel)]="search" />
+
+        <span type="button" class="icon input-group-text" (click)="submit()">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+      <!-- <div class="div-btn">
+        <button class="btn btn-outline-primary">Search</button>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="chanels">
+    <div class="p-3 text-white bg-dark discover" style="width: 280px;">
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4">Discover</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a type="button" id="1" class="nav-link category text-white" [class.active]="true" (click)="this.category(1)">
+            <i class="bi bi-speedometer" style="color: white; font-size:16px"></i>
+            Random
+          </a>
+        </li>
+        <li>
+          <a type="button" id="2" class="nav-link category text-white" [class.active]="false" (click)="this.category(2)">
+            <i class="bi bi-controller" style="color: white; font-size:16px"></i>
+            Games
+          </a>
+        </li>
+        <li>
+          <a type="button" id="3" class="nav-link category text-white" [class.active]="false" (click)="this.category(3)">
+            <i class="bi bi-boombox" style="color: white; font-size:16px"></i>
+            Music
+          </a>
+        </li>
+        <li>
+          <a type="button" id="4" class="nav-link category text-white" [class.active]="false" (click)="this.category(4)">
+            <i class="bi bi-book" style="color: white; font-size:16px"></i>
+            Education
+          </a>
+        </li>
+        <li>
+          <a type="button" id="5" class="nav-link category text-white" [class.active]="false" (click)="this.category(5)">
+            <i class="bi bi-moisture" style="color: white; font-size:16px"></i>
+            Science
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="w-100">
+      <div>
+       <h1 class="channels-title">Channels</h1>
+     </div>
+
+     <div *ngIf="!this.loading" class="row" infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollUpDistance]="1.5"
+     [infiniteScrollThrottle]="50"
+     (scrolled)="onScroll()" >
+
+     <div *ngFor="let channel of this.channels?.result" type="button" class="col-lg-3 col-md-4 col-sm-6 col-12 channel-continer" (click)="this.goToProfile(channel.nickname)">
+      <div *ngIf="this.channels.result?.length" class="channel">
+        <div class="d-flex justify-content-center">
+          <img [src]="'http://localhost:1000/' + channel.photo" class="card-img-top rounded-circle rounded" alt="...">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">@{{channel.nickname}}</h5>
+          <h6 class="card-title">{{channel.name}}</h6>
+          <p *ngIf="!channel.about_me" class="card-text">About me no yet</p>
+          <p *ngIf="channel.about_me" class="card-text">{{channel.about_me.substring(0,25)}}...</p>
+          <p class="card-text"><small class="text-muted">{{channel.tag}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!this.channels.result?.length" >
+      <h1 class="d-flex justify-content-center" style="color:'#5a6a7e'">There aren't channels with this category</h1>
+    </div>
+  </div>
+
+  <div *ngIf="this.loading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+

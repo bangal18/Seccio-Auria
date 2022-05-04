@@ -184,4 +184,29 @@ export class ProviderService {
 
 
   }
+
+  async getUsersSearch(nickname : string) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/search/${nickname}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async getUserByTag(tagId : number, index : any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/searchByTag/${tagId}/${index}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+
+  }
 }

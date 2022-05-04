@@ -38,7 +38,6 @@ exports.follow = async function (req, res) {
 }
 
 exports.unfollow = async function (req,res){
-    console.log(req.params)
     let data = await modelUserInfo.unfollow(req.params.user_id, req.params.follower_id);
     res.send(data)
 }
@@ -54,4 +53,17 @@ exports.updateUser = async function (req, res){
     }
     let data = await modelUserInfo.updateUser(req.body);
     res.send(data)
+}
+
+exports.getUsersSearch = async function (req, res) {
+    let data = await modelUserInfo.getUsersSearch(req.params.nickname);
+    res.send(data);
+}
+
+
+exports.getUserByTag = async function (req,res) {
+    let data = await modelUserInfo.getUserByTag(req.params.tagId, req.params.index);
+    console.log(req.params)
+    // console.log(data)
+    res.send(data);
 }
