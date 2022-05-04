@@ -1,4 +1,5 @@
 const db = require('../config/db').connection;
+const NEXT_X_NEWS = 2;
 
 exports.getUserByNicknameEmail = async function (nickname, email) {
     try{
@@ -103,7 +104,7 @@ exports.follow = function (user_id, follower_id){
         return new Promise( (resolve, reject) => {
             let sql = "INSERT INTO followers (user_id,follower_id) VALUES (?,?)";
             let values = [user_id, follower_id];
-        
+
             db.query(sql,values, async (err, result)=>{
                 if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
                 resolve({ status: 1, data : result[0] });
@@ -186,7 +187,64 @@ exports.userExists = async function (nickname) {
         });
 
     }catch(error){
-
+        console.log(error)
     }
 }
 
+exports.getUsersSearch = function (nickname){
+    try{
+        let sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
+        'INNER JOIN tags as t '+ 
+        'ON u.tag_id = t.id '+
+        'WHERE nickname REGEXP CONCAT("^", ?)';
+
+        let value = [nickname];
+
+        return new Promise( (resolve, reject) => {
+
+            db.query(sql, value, async (err, result)=>{
+                if(err) {console.log("Error conection db"); resolve({status: 0, message:"Error conection db"});}
+                resolve({ status: 1, result : result });
+            });
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+exports.getUserByTag = function(tag, index){
+    try{
+    
+        let sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
+        'INNER JOIN tags as t '+ 
+        'ON u.tag_id = t.id '+
+        'WHERE u.tag_id = ? '+ 
+        'LIMIT ?,?';
+        index = parseInt(index)
+        let value = [tag,index,NEXT_X_NEWS];
+
+        if(tag == 1) {
+            sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
+            'INNER JOIN tags as t '+ 
+            'ON u.tag_id = t.id ' +
+            'LIMIT ?,?' ;
+            value = [index, NEXT_X_NEWS];
+        }
+
+
+        console.log(sql)
+        return new Promise( (resolve, reject) => {
+
+            db.query(sql, value, async (err, result)=>{
+
+                if(err) {console.log("err"); resolve({status: 0, message:"Error conection db"});}
+                resolve({ status: 1, result : result });
+            });
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+
+}
