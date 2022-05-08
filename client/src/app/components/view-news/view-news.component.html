@@ -1,0 +1,42 @@
+<div class="container-noticia">
+    <div class="container noticia">
+        <div class="setup">
+            <img [src]="'http://localhost:1000/' + user.photo" class="rounded-circle rounded" />
+            <div class="icons">
+                <a *ngIf="!liked" (click)="like()"  type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
+                <a *ngIf="liked" (click)="unlike()" type="button" ><i class="bi icons bi-star-fill" style="color:black;"></i></a>
+
+
+                <a *ngIf="!saved" (click)="save()" type="button" ><i class="bi icons bi-bookmarks" style="color:black"></i></a>
+                <a *ngIf="saved" (click)="unsave()" type="button" ><i class="bi icons bi-bookmarks-fill" style="color:black"></i></a>
+
+                <a type="button" (click)="share()" ><i class="bi icons bi-share" style="color:black"></i></a>    
+            </div>
+        </div>
+        <div class="hgroup">
+            <h1>{{news?.news_title}}</h1>
+            <h3>{{news?.subtitle}}</h3>
+        </div>
+        <div id="news-text" #newsText>
+        </div>
+    </div>
+    
+    <div class="flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <div class="d-flex info-img align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <img [src]="'http://localhost:1000/' + user.photo" class="rounded-circle rounded" />
+      </div>
+      <hr>
+      <div class="info">
+        <p>User: @{{user.nickname}}</p>
+        <p>Folowers: {{followers.data.total}}</p>
+        <p>Email: {{user.email}}</p>
+        <!-- <button class="btn btn-outline-primary">Folow</button> -->
+        <div *ngIf="user.id != currentUserId">
+         <a *ngIf="!this.isFollowing" class="btn btn-outline-primary mb-2" (click)="this.follow()">Follow</a>
+         <a *ngIf="this.isFollowing" class="btn btn-primary mb-2" (click)="this.unFollow()">Following</a>
+     </div>
+ </div>
+
+</div>
+
+</div>

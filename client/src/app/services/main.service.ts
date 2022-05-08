@@ -22,7 +22,7 @@ export class MainService {
     public authService : AuthService,
     public request : RequestsService,
 
-  ) {
+    ) {
   }
 
 
@@ -32,8 +32,23 @@ export class MainService {
   setParams(params:any) { this.params = params; }
   getParams() {
     let params = this.params;
-    // delete this.params;
+    delete this.params;
     return params;
+  }
+
+  setParamsNews(params:any) { this.params = params; }
+  getParamsNews() {
+    let params = this.params;
+    return params;
+  }
+  deleteParamsNews(){
+    delete this.params;
+  }
+  deCodeNewsText(text : any){
+    let utf8decoder = new TextDecoder();
+    let bytes = new Uint8Array(text)
+    let news = (utf8decoder.decode(bytes));
+    return news;
   }
   getCurrentUser() {
     let currentUser = {

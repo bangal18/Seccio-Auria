@@ -11,7 +11,7 @@ const httpOptions = {
 })
 export class ProviderService {
 
-  
+
   constructor(private http: HttpClient,private request : RequestsService) { }
 
 
@@ -31,9 +31,23 @@ export class ProviderService {
 
   }
 
-  async getNewsById(id:any) {
+  async editNew(news:any){
+    const body = JSON.stringify(news);
+
     return new Promise<any>((resolve, reject)=>{
-      this.request.get(`/get/news/${id}`,
+      this.request.post('/post/news/edit', body, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async getNewsByUserId(id:any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/newsByUserId/${id}`,
         (data : any)=>{
           resolve(data);
         },
@@ -170,7 +184,7 @@ export class ProviderService {
   }
 
   async loadNextByNews(lastId : number) {
-    
+
 
     return new Promise<any>((resolve, reject)=>{
       this.request.get(`/get/getNextXNews/${lastId}`,
@@ -209,4 +223,105 @@ export class ProviderService {
     });
 
   }
+
+  async getNewsById(id:number){
+    return new Promise<any>((resolve, reject) =>{
+      this.request.get(`/get/newsById/${id}`, 
+        (data : any) =>{
+          resolve(data);
+        }, 
+        (err:any) =>{
+          resolve(err);
+        });
+    });
+  }
+
+  async like (userId:number, newsId:number){
+    const body = JSON.stringify({userId : userId,  newsId : newsId});
+
+    return new Promise<any>((resolve, reject)=>{
+      this.request.post('/post/like', body, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    });
+  }
+
+  async unlike (userId:number, newsId:number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.delete(`/delete/unlike/${userId}/${newsId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async isLiked(userId : any, newsId : any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/isLiked/${userId}/${newsId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async save (userId:number, newsId:number){
+    const body = JSON.stringify({userId : userId,  newsId : newsId});
+    return new Promise<any>((resolve, reject)=>{
+      this.request.post('/post/save', body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async unsave (userId:number, newsId:number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.delete(`/delete/unsave/${userId}/${newsId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async isSaved(userId : any, newsId : any) {
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/isSaved/${userId}/${newsId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async deleteNews (newsId:number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.delete(`/delete/news/${newsId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+
 }

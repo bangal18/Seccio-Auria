@@ -35,6 +35,7 @@ import { ToastsComponent } from './components/toasts/toasts.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorComponent } from './components/error/error.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { ViewNewsComponent } from './components/view-news/view-news.component';
 
 
 
@@ -56,6 +57,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     ProfileComponent,
     ErrorComponent,
     SettingsComponent,
+    ViewNewsComponent,
 
    
   ],

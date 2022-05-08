@@ -58,8 +58,79 @@
 		</div>
 	</div>
 </div>
+<div class="news-container">
+	<div class="news">
+		<div class="row news-container-item">
+			<div *ngFor="let n of this.news; index as i;" [id]="n.id" class="col-12 col-sm-6 col-md-6">
+
+				<div class="row news-item">
+
+					<div role="button" (click)="goToNews(n.id)" class="col-md-4 img-child">
+						<img [src]="'http://localhost:1000/' + n.main_cover" class="img-child rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div role="button" (click)="goToNews(n.id)">
+							<h5 class="card-title">{{n.news_title}}</h5>
+							<p class="card-text">
+								This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+
+							</p>
+						</div>
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+						<div *ngIf="n.user_id == main.getCurrentUser().currentUser.id">
+							<button class="btn btn-xs btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="editNew=n">Edit New</button>
+							<button class="btn btn-xs btn-outline-danger ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deleteId=n.id">Delete new</button>
+						</div>	
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+
 <div class="justify-content-center loading" [style.display]="this.loading ? 'none' : 'flex'"> 
 	<div class="spinner-border text-primary" role="status">
-	  <span class="visually-hidden">Loading...</span>
+		<span class="visually-hidden">Loading...</span>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit news</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       	Are you sure you want to edit the news?
+       	If you edit the new, the main cover will be deleted.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="edit(editNew)">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete news</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       	Are you sure you want to delete the news?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="delete(deleteId)">Yes</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -18,6 +18,10 @@ export class ProfileComponent implements OnInit {
   public following = false;
   public about! : string;
   public diabledButton : boolean = false;
+  public news! : any;
+  public deleteId! : any;
+  public editNew! : any;
+
   constructor(public main:MainService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -37,17 +41,20 @@ export class ProfileComponent implements OnInit {
 
     this.followers = await this.main.provider.getFollowers(this.user.user.id);
     this.followings = await this.main.provider.getFollowing(this.user.user.id);
-    this.newsUser = await this.main.provider.getNewsById(this.user.user.id);
+    this.newsUser = await this.main.provider.getNewsByUserId(this.user.user.id);
     
     let isFollowing = await this.main.provider.isFollowing(id,this.user.user.id);
     this.following = isFollowing.data.total;
 
     if(!this.user.user.about_me) this.user.user.about_me = "Bio no yet";
+
+    let data = await this.main.provider.getNewsByUserId(this.user.user.id);
+    this.news = data.content;
     this.loading = true;
 
-    console.log(this.followers)
-    console.log(this.followings)
-
+  }
+   goToNews(id:number){
+    this.main.redirectTo(`news/${id}`);
   }
 
   async follow(){
@@ -66,6 +73,23 @@ export class ProfileComponent implements OnInit {
     let data = await this.main.provider.unFollow(id,this.user.user.id);
     if(data.status) this.followers.data.total -= 1;
     this.diabledButton = false;
+  }
+
+  edit(news:any){
+
+    this.main.setParamsNews(news);
+    this.main.redirectTo('create-new');
+
+  }
+
+  async delete(id : any){
+    let data = await this.main.provider.deleteNews(id);
+    if(data.status){
+      document.getElementById(id)!.style.display = "none";
+      this.main.toastr.success("Deleted successfully!");
+      return;
+    }
+    this.main.toastr.warning("An error occurred"); 
   }
 
 

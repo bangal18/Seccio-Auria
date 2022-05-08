@@ -16,7 +16,7 @@ exports.getUserById = async function (req,res) {
     res.send(data);
     
 }
-
+    
 exports.getFollowers = async function (req, res) {
     let data = await modelUserInfo.getFollowers(req.params.id);
     res.send(data)

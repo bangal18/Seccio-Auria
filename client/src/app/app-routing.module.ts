@@ -9,7 +9,8 @@ import { SearhComponent } from './components/searh/searh.component';
 import { CreateNewComponent } from './components/create-new/create-new.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorComponent } from './components/error/error.component';
-import { SettingsComponent } from './components/settings/settings.component'
+import { SettingsComponent } from './components/settings/settings.component';
+import { ViewNewsComponent } from './components/view-news/view-news.component';
 
 //Guard
 import { AuthGuard } from './auth.guard';
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path : 'create-new', component: CreateNewComponent, canActivate : [AuthGuard]},
   {path : 'profile', component: ProfileComponent, canActivate : [AuthGuard]},
   {path : 'settings', component: SettingsComponent, canActivate : [AuthGuard]},
+  {path : 'news/:id', component: ViewNewsComponent },
   {path : 'error404', component : ErrorComponent},
   {path : ':username', component : ProfileComponent},
 ];

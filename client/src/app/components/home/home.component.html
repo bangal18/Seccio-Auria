@@ -1,76 +1,97 @@
  <div class="hgroup">
-	<h1>Top News</h1>
+ 	<h1>Top News</h1>
+ </div>
+
+
+
+ <div class="news-container">
+ 	<div class="news">
+ 		<div class="row news-container-item" infiniteScroll
+ 		[infiniteScrollDistance]="2"
+ 		[infiniteScrollThrottle]="50"
+ 		(scrolled)="this.onScroll()">
+
+ 		<div *ngFor="let n of this.news; index as i;" [class]="i%5==0 ? 'col-12' : 'col-12 col-sm-6 col-md-6'">
+
+ 			<div *ngIf="i%5==0"  class="card mb-3"><!--class-> noticies--> 
+ 				<div class="row">
+ 					<div class="col-md-4" role="button" (click)="goToNews(n.id)">
+ 						<img [src]="'http://localhost:1000/' + n.main_cover" class="img-main2 rounded-start" alt="...">
+ 					</div>
+ 					<div class="col-md-8">
+ 						<div class="card-body">
+                            <div role="button" (click)="goToNews(n.id)">
+                                <h5 class="card-title">{{n.news_title}}</h5>
+                                <div class="acount-content">
+                                    <img src="img/xavineta.jpg" alt="">
+                                    <span>FC Barcelona</span>
+                                </div>
+                                <p class="card-text">
+                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, unde aliquid dolorem ut nemo culpa laboriosam autem ad, sapiente perspiciatis similique itaque? Soluta quo, exercitationem modi ipsum nihil cupiditate. Vel!
+                                </p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>    
+                            </div>
+
+              <!--               <div class="icons">
+                               <a *ngIf="!liked" (click)="like(n.id)"  type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
+                               <a *ngIf="liked" (click)="unlike(n.id)" type="button" ><i class="bi icons bi-star-fill" style="color:black;"></i></a>
+
+
+                               <a *ngIf="!saved" (click)="save(n.id)" type="button" ><i class="bi icons bi-bookmarks" style="color:black"></i></a>
+                               <a *ngIf="saved" (click)="unsave(n.id)" type="button" ><i class="bi icons bi-bookmarks-fill" style="color:black"></i></a>
+
+                               <a type="button" (click)="share(n.id)" ><i class="bi icons bi-share" style="color:black"></i></a>
+                           </div> -->
+
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+           <div *ngIf="i%5!=0" class="row news-item">
+
+               <div role="button" (click)="goToNews(n.id)" class="col-md-4 img-child">
+                  <img [src]="'http://localhost:1000/' + n.main_cover" class="img-child rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div role="button" (click)="goToNews(n.id)">
+                    <h5 class="card-title">{{n.news_title}}</h5>
+                    <p class="card-text">
+                        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+
+                    </p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              <!--   <div class="icons">
+                    <a *ngIf="!liked" (click)="like(n.id)"  type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
+                    <a *ngIf="liked" (click)="unlike(n.id)" type="button" ><i class="bi icons bi-star-fill" style="color:black;"></i></a>
+
+
+                    <a *ngIf="!saved" (click)="save(n.id)" type="button" ><i class="bi icons bi-bookmarks" style="color:black"></i></a>
+                    <a *ngIf="saved" (click)="unsave(n.id)" type="button" ><i class="bi icons bi-bookmarks-fill" style="color:black"></i></a>
+
+                    <a type="button" (click)="share(n.id)" ><i class="bi icons bi-share" style="color:black"></i></a>
+                </div> -->
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="justify-content-center" [style.display]="this.loading ? 'flex' : 'none'"> 
+        <div class="spinner-border text-primary" role="status">
+         <span class="visually-hidden">Loading...</span>
+     </div>
+ </div>
 </div>
-
-<!-- <div class="card mb-3 noticies">
-	<div class="row g-1">
-	    <div class="col-md-4" >
-	        <img src="assets/images/head-news.jpg" class="img-fluid rounded-start" alt="...">
-	    </div>
-    	<div class="col-md-8">
-		    <div class="card-body">
-		        <h5 class="card-title">La Xavineta</h5>
-		        <div class="acount-content">
-		            <img src="img/xavineta.jpg" alt="">
-		            <span>FC Barcelona</span>
-		        </div>
-		        <p class="card-text">
-		            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-		            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, unde aliquid dolorem ut nemo culpa laboriosam autem ad, sapiente perspiciatis similique itaque? Soluta quo, exercitationem modi ipsum nihil cupiditate. Vel!
-		        </p>
-		        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-		        <div class="icons">
-		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
-		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-bookmarks" style="color:black"></i></a>
-		            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" ><i class="bi icons bi-share" style="color:black"></i></a>
-		        </div>
-		        
-		    </div>
-    	</div>
-	</div>
 </div>
- -->
-
-<div class="news-container">
-	<div class="news">
-		<div class="row news-container-item" infiniteScroll
-      			[infiniteScrollDistance]="2"
-      			[infiniteScrollThrottle]="50"
-      			(scrolled)="this.onScroll()">
-		
-
-			<div *ngFor="let n of this.news;" class="col-md-6 news-item">
-
-				<div class="row">
-					<div class="col-md-6 col-lg-5 main-cover-container">
-						<img type="button" [src]="'http://localhost:1000/' + n.main_cover" class="img">						
-					</div>
-					<div class="col-lg-6">
-						<h3 class="main-title">{{n.news_title}}</h3>
-						<p class="main-description">{{n.subtitle}}</p>
-						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-						 <div class="icons">
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi icons bi-bookmarks" style="color:black"></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi icons bi-share" style="color:black"></i></a>
-                        </div>
-                        <div class="acount-content">
-				            <img src="assets/images/Camera.jpg" alt="">
-				            <span>FC Barcelona</span>
-		        		</div>
-					</div>
-				</div>
-
-			</div>
-			
-
-			
-			<div class="justify-content-center" [style.display]="this.loading ? 'flex' : 'none'"> 
-		        <div class="spinner-border text-primary" role="status">
-		          <span class="visually-hidden">Loading...</span>
-		        </div>
-      		</div>
-		</div>
-	</div>
 </div>
 
 
