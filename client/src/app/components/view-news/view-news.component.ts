@@ -22,6 +22,7 @@ export class ViewNewsComponent implements OnInit {
     let id : any = this.router.snapshot.paramMap.get('id');
     let dataNews = await this.main.provider.getNewsById(id);
     this.news = dataNews.content[0];
+    if(!this.news){ this.main.redirectTo('error'); return }
     let text = this.deCodeNewsText(this.news.news_text.data);
     document.getElementById('news-text')!.innerHTML = text;
     let dataUser = await this.main.provider.getUserById(this.news.user_id);
@@ -52,12 +53,12 @@ export class ViewNewsComponent implements OnInit {
 
 async like() {
   this.liked = true;
-  await this.main.provider.like(this.currentUserId,this.news.id);
+  await this.main.provider.like(this.currentUserId,this.news.id, this.news.user_id);
 }
  async unlike() {
   this.liked = false;
 
-  await this.main.provider.unlike(this.currentUserId,this.news.id);
+  await this.main.provider.unlike(this.currentUserId,this.news.id, this.news.user_id);
 }
 
 async unsave () {

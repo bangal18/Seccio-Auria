@@ -3,7 +3,7 @@
 		<!-- <h2 class="visually d-flex justify-content-center">Settings</h2> -->
 		<form (submit)="this.submit()" [formGroup]="settingForm">
 			<div  class="col-md-12 border-md-right border-light text-center">
-				<img class="img-fluid rounded-circle rounded" [src]="'http://localhost:1000/' + this.user?.user.photo" alt="Image description" width="84">
+				<img class="img-fluid rounded-circle rounded" [src]="user?.user.photo" alt="Image description" width="84">
 			</div>
 			<div class="mb-3 d-flex justify-content-center">
 				<button type="button" id="actionButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -12,25 +12,25 @@
 			</div>
 			<div  class="mb-3">
 				<label>Nickname:</label>
-				<input value="{{this.user?.user.nickname}}" type="nickname" class="form-control" name="nickname" placeholder="Nickname" formControlName="nickname" />
+				<input value="{{user?.user.nickname}}" type="nickname" class="form-control" name="nickname" placeholder="Nickname" formControlName="nickname" />
 			</div>
 
 			<div class="mb-3">
 				<label>Name:</label>
-				<input value="{{this.user?.user.name}}" type="name" class="form-control" name="name" placeholder="Name" formControlName="name"/>
+				<input value="{{user?.user.name}}" type="name" class="form-control" name="name" placeholder="Name" formControlName="name"/>
 			</div>
 
 			<div  class="mt-4">
 				<label>About me:</label>
-				<textarea rows="5" class="form-control" class="w-100 about_me" formControlName="about_me" value="{{this.user?.user.about_me}}"></textarea>
+				<textarea rows="5" class="form-control" class="w-100 about_me" formControlName="about_me" value="{{user?.user.about_me}}"></textarea>
 			</div>
 
 			<div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" [disabled]="this.disabledButton"
 				>Save</button>
 			</div>
 			<hr>
-			<div class="mb-3"><button class="btn btn-secondary d-block w-100" type="submit" 
-				>Change password</button>
+			<div class="mb-3"><button class="btn btn-secondary d-block w-100" type="button"
+				data-bs-toggle="modal" data-bs-target="#exampleModal1">Change password</button>
 			</div>
 		</form>
 	</section>
@@ -46,11 +46,11 @@
 
 			<div>
 
-			
+
 				<div class="d-flex justify-content-center">
 					<input type="file" (change)="fileChangeEvent($event)" />
 				</div>
-			
+
 
 				<div class="d-flex justify-content-center">
 					<image-cropper class="cropper"
@@ -67,7 +67,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<img class="img-result" [src]="!this.hiddenImgView ? croppedImage : 'http://localhost:1000/' + this.user.user.photo" />					
+					<img class="img-result" [src]="!this.hiddenImgView ? croppedImage : user.user.photo" />					
 				</div>
 
 			</div>
@@ -84,4 +84,58 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="exampleModal1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-flex justify-content-center">
+				<h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+				<button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form [formGroup]="changePasswordForm" enctype="multipart/form-data">
+				<div class="m-2">
+					<input type="password" class="w-100 p-2" id="" formControlName="currentPassword" placeholder="Current password">
+
+					<span *ngIf="changePasswordForm.get('currentPassword')?.touched && changePasswordForm.get('currentPassword')?.errors?.['required']"
+					class="error-message">*Required</span>
+
+				</div>
+				<div class="m-2">
+					<input type="password" class="w-100 p-2" id="" formControlName="newPassword" placeholder="New password">
+
+					<span *ngIf="changePasswordForm.get('newPassword')?.touched && changePasswordForm.get('newPassword')?.errors?.['required']"
+					class="error-message">*Required</span>
+
+					<span *ngIf="changePasswordForm.get('newPassword')?.touched && changePasswordForm.get('newPassword')?.errors?.['pattern']" 
+					class="error-message">
+				*The confirm password is weak. The confirm password must have at least one capital letter, a number and a minimum length of 8 characters.</span>
+
+				</div>
+
+				<div class="m-2">
+					<input type="password" class="w-100 p-2" id="" formControlName="confirmNewPassword" placeholder="Confirm new password">
+
+					<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['required']"
+					class="error-message">*Required</span>
+
+
+					<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['pattern']" 
+					class="error-message">
+				*The confirm password is weak. The confirm password must have at least one capital letter, a number and a minimum length of 8 characters.</span>
+
+			</div>
+			<!-- data-bs-dismiss="modal" -->
+			<div class="d-flex justify-content-center"> 
+				<button type="button" (click)="changePasswordSubmit()" [disabled]="!changePasswordForm.valid"  class="btn btn-outline-success modal-button">
+					Change password
+				</button>  
+			</div>
+
+		</form>
+
+
+
+	</div>
+</div>
 </div>

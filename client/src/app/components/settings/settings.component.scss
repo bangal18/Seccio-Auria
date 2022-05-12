@@ -13,7 +13,7 @@
 
 .modal-button{
 	margin: 1vh;
-	border-radius:20px;
+
 }
 
 .input{
@@ -137,4 +137,11 @@ label{
 
 .btn-primary{
 	background: #214a80;
+}
+
+.error-message{
+    font-size:12px;
+    display:flex;
+    justify-content: center;
+    color:red;
 }

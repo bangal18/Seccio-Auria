@@ -1,7 +1,7 @@
 <div *ngIf="this.loading" class="card-body">
 	<div class="row card-container">
 		<div class="col-md-4 border-md-right border-light text-center">
-			<img class="img-fluid rounded-circle rounded" [src]="'http://localhost:1000/' + this.user.user.photo" alt="Image description" width="84">
+			<img class="img-fluid rounded-circle rounded" [src]="user.user.photo" alt="Image description" width="84">
 
 			<h2 class="mb-2">{{this.user?.user.nickname}}</h2>
 			<h5 class="text-muted mb-4">{{this.user?.user.name}}</h5>
@@ -37,14 +37,14 @@
 
 		<div class="col-md-8">
 			<h3 class="card-title">About me</h3>
-			<p class="mb-5 font-weight-light">{{this.user?.user.about_me}}</p>
+			<p class="mb-5 font-weight-light">{{user?.user.about_me}}</p>
 
 			<div class="row">
 				<div class="col-lg-4 mb-5 mb-lg-0">
 					<h4 class="h3 mb-3">Followers</h4>
 
 					<div class="mb-1">
-						<span class="h1 font-weight-light text-muted">{{this.followers?.data.total}}</span>
+						<span class="h1 font-weight-light text-muted">{{followers?.data.total}}</span>
 					</div>
 				</div>
 
@@ -76,10 +76,10 @@
 
 							</p>
 						</div>
-						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+						<p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.creation_date)}} ago</small></p>
 						<div *ngIf="n.user_id == main.getCurrentUser().currentUser.id">
-							<button class="btn btn-xs btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="editNew=n">Edit New</button>
-							<button class="btn btn-xs btn-outline-danger ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deleteId=n.id">Delete new</button>
+							<button class="btn btn-xs btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="editNew=n">Edit New</button>
+							<button class="btn btn-xs btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deleteId=n.id">Delete new</button>
 						</div>	
 					</div>
 				</div>	

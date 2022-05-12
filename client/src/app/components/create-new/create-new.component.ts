@@ -19,7 +19,8 @@ export class CreateNewComponent implements OnInit {
   public newsMainInfoForm! : FormGroup;
   public disableButton = true;
   public file! : File;
-
+  public currentUserId: any = this.main.getCurrentUser().currentUser.id;
+  private editNews : any = this.main.getParamsNews();
 
   public editorConfig: AngularEditorConfig = {
     editable: true,
@@ -141,7 +142,7 @@ async submit() {
   let sessions = this.main.getCurrentUser();
   let photo = await this.main.provider.sendMainInfo(this.file);
   let news = {
-    id : this.main.getParams().id || null,
+    id : this.editNews.id,
     userId : sessions.currentUser.id,
     title : this.newsMainInfoForm.value.title, 
     subTitle :this.newsMainInfoForm.value.subTitle, 
@@ -152,20 +153,20 @@ async submit() {
   if(this.main.getParams()){
    let data = await this.main.provider.addNew(news);
    if(!data){
-      this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
-      return;
-    }
+    this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
+    return;
   }
-  else{
-    let data = await this.main.provider.editNew(news);
-    if(!data){
-      this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
-      return;
-    }
-    this.main.deleteParamsNews();
+}
+else{
+  let data = await this.main.provider.editNew(news);
+  if(!data){
+    this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
+    return;
   }
+  this.main.deleteParamsNews();
+}
 
-  this.main.redirectTo('profile');
+this.main.redirectTo('profile');
 }
 
 

@@ -1,5 +1,6 @@
 const globalFunctions = require('../global/globalFunctions');
 const modelUserInfo = require('../model/UserInfo.model');
+const modelLogin = require('../model/login.model');
 const jwt = require('jsonwebtoken');
 const configToken = require('../config/auth');
 const bcrypt = require("bcrypt");
@@ -30,6 +31,19 @@ exports.addLogLogin = async function (req,res){
   			email : user.user.email
   		},
   	});
+}
+
+exports.loginGoogle = async function (req,res){
+	let data = await modelLogin.loginGoogle(req.body.email);
+	if(!data.status){
+		res.send(data);
+		return;
+	}
+	const token = jwt.sign({
+    	nickname : data.user.nickname, 
+  	}, configToken.SECRET_TOKEN);
+  	data['token'] = token;
+	res.send(data);
 }
 
 

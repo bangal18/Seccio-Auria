@@ -231,9 +231,6 @@ exports.getUserByTag = function(tag, index){
             'LIMIT ?,?' ;
             value = [index, NEXT_X_NEWS];
         }
-
-
-        console.log(sql)
         return new Promise( (resolve, reject) => {
 
             db.query(sql, value, async (err, result)=>{
@@ -245,6 +242,24 @@ exports.getUserByTag = function(tag, index){
 
     }catch(error){
         console.log(error);
+    }
+
+}
+
+exports.updatePassword = function (password, id){
+    try{
+        return new Promise ((resolve, reject)=>{
+            let sql = `UPDATE users SET password = ? WHERE id = ?`;        
+            let values = [password, id]
+
+            db.query(sql, values, function (err, result,fields){
+                if(err){ resolve({staus : 0, message : "Error database"}); return;}
+                resolve( { status: 1,lastId: result.insertId } );
+            });
+        });
+
+    }catch(err){
+        console.log(err)
     }
 
 }

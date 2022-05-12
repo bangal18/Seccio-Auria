@@ -236,8 +236,8 @@ export class ProviderService {
     });
   }
 
-  async like (userId:number, newsId:number){
-    const body = JSON.stringify({userId : userId,  newsId : newsId});
+  async like (userId:number, newsId:number, newsUserId:number){
+    const body = JSON.stringify({userId : userId,  newsId : newsId, newsUserId :newsUserId});
 
     return new Promise<any>((resolve, reject)=>{
       this.request.post('/post/like', body, 
@@ -250,9 +250,9 @@ export class ProviderService {
     });
   }
 
-  async unlike (userId:number, newsId:number){
+  async unlike (userId:number, newsId:number, newsUserId:number){
     return new Promise<any>((resolve, reject)=>{
-      this.request.delete(`/delete/unlike/${userId}/${newsId}`,
+      this.request.delete(`/delete/unlike/${userId}/${newsId}/${newsUserId}`,
         (data : any)=>{
           resolve(data);
         },
@@ -323,5 +323,85 @@ export class ProviderService {
     })
   }
 
+  async getSavesNews (userId : number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/savesNews/${userId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
 
+  async updatePassword (passwords : object) {
+    const body = JSON.stringify(passwords);
+    return new Promise<any>((resolve, reject)=>{
+      this.request.put('/put/passwords', body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+
+  }
+
+  async getNotificationsById (userId : number){
+    return new Promise<any>((resolve, reject)=>{
+      this.request.get(`/get/notifications/${userId}`,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+    })
+  }
+
+  async notificationsViewed(userId : number){
+    const body = JSON.stringify({userId : userId});
+    return new Promise<any>((resolve, reject) =>{
+      this.request.post("/post/notificationsViewed", body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+
+    })
+  } 
+
+  async signUpGoogle(user : any){
+    const body = JSON.stringify({user : user});
+    return new Promise<any>((resolve, reject) =>{
+      this.request.post("/post/signUpGoogle", body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+
+    })
+  }
+
+
+  async loginGoogle(email : string){
+    const body = JSON.stringify({email : email});
+    return new Promise<any>((resolve, reject) =>{
+      this.request.post("/post/loginGoogle", body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+
+    })
+
+  }
 }

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-function sendMail(code,mail) {
+function sendMail(mail,message) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -8,12 +8,12 @@ function sendMail(code,mail) {
             pass: 'OeIgeagnb'
         }
     });
-    var mensaje = `Code: ${code}`;
+    //var mensaje = `Code: ${code}`;
     var mailOptions = {
         from: 'bangalcamara2002@gmail.com',
         to: mail,
         subject: 'Asunto Del Correo',
-        text: mensaje
+        text: message
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

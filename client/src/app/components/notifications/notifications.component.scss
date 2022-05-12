@@ -1,0 +1,28 @@
+.rounded {
+    width:50px;
+    height:50px;
+    border-radius:160px;
+}
+
+.notification{
+    margin: 0.5em;
+    margin-bottom: 1em;
+    box-shadow:  5px 8px 0 rgba(0, 0, 0, .24), 0 8px 30px 0 rgba(255, 255, 255, 0.19);
+    border: 1px solid rgba(0, 0, 0, .24);
+    border-radius:5px;
+}
+.toast-header {
+    background-color: #282d32;
+    color: white;
+}
+
+.toast-body{
+    //background-color: #282d32;
+}
+
+.notification-img{
+    width:50px;
+    height:50px;
+    object-fit: cover;
+    border-radius:2px;
+}

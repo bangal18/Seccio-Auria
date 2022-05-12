@@ -3,8 +3,8 @@ var controllerSignUp = require('../controller/signUp.controller');
 var controllerUserInfo = require('../controller/userInfo.controller');
 var controllerLogin = require('../controller/login.controller');
 var controllerNews = require('../controller/news.controller');
-var controllerProfile = require('../controller/profile.controller')
-
+var controllerProfile = require('../controller/profile.controller');
+var controllerNotifications = require('../controller/notification.controller');
 const multer  = require('../libs/multer');
 
 var photoController = require('../controller/photo.controller') 
@@ -13,9 +13,14 @@ var photoController = require('../controller/photo.controller')
 router.post('/post/user',controllerSignUp.addLogRegister);
 router.post('/post/check/user',controllerSignUp.registerConfigurations);
 router.post('/post/code', controllerSignUp.checkCodeClient);
+router.post('/post/signUpGoogle', controllerSignUp.signUpGoogle);
 
 /*Login*/
 router.post('/post/login', controllerLogin.addLogLogin);
+router.post('/post/loginGoogle', controllerLogin.loginGoogle)
+
+/*Password*/
+router.put('/put/passwords', controllerUserInfo.updatePassword);
 
 /*News*/
 router.post('/post/news', controllerNews.addNews);
@@ -24,7 +29,9 @@ router.post('/uploads', multer.single('photo') ,photoController.createPhoto);
 router.get('/get/newsByUserId/:userId', controllerNews.getNewsByUserId);
 router.get('/get/getNextXNews/:index', controllerNews.getNextXNews);
 router.get('/get/newsById/:id', controllerNews.getNewsById);
+router.get('/get/savesNews/:user_id', controllerNews.getSavesNews)
 router.delete('/delete/news/:id', controllerNews.deleteNewsById);
+
 
 /*Profile*/
 router.get('/get/profile/:username', controllerUserInfo.getUserByNikname);
@@ -40,13 +47,15 @@ router.delete('/delete/unfollow/:user_id/:follower_id', controllerUserInfo.unfol
 /*Inons*/
 router.get('/get/isLiked/:user_id/:news_id', controllerNews.isLiked);
 router.post('/post/like', controllerNews.like);
-router.delete('/delete/unlike/:user_id/:news_id', controllerNews.unlike);
+router.delete('/delete/unlike/:user_id/:news_id/:news_user_id', controllerNews.unlike);
 
 router.get('/get/isSaved/:user_id/:news_id', controllerNews.isSaved);
 router.post('/post/save', controllerNews.save);
 router.delete('/delete/unsave/:user_id/:news_id', controllerNews.unsave);
 
-
+/*Notifications*/
+router.get('/get/notifications/:id', controllerNotifications.getNotificationsById);
+router.post('/post/notificationsViewed', controllerNotifications.notificationsViewed);
 
 /*Settings*/
 router.get('/get/settings/:id', controllerUserInfo.getUserById);

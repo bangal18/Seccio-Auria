@@ -1,0 +1,36 @@
+<div *ngIf="!news?.length" class="noSaves">
+	<h2 style="text-align: center; color: black;">You don't have any news saved</h2>
+</div>
+
+<div *ngIf="news?.length" class="news-container">
+	<div class="hgroup">
+		<h1>News saved</h1>
+	</div>
+		
+	<div class="news">
+		<div class="row news-container-item">
+			<div *ngFor="let n of this.news; index as i;" [id]="n.id" class="col-12 col-sm-6 col-md-6">
+
+				<div class="row news-item">
+
+					<div role="button" (click)="goToNews(n.id)" class="col-md-4 img-child">
+						<img [src]="'http://localhost:1000/' + n.main_cover" class="img-child rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div role="button"  (click)="goToNews(n.id)">
+							<h5 class="card-title">{{n.news_title}}</h5>
+							<p class="card-text">
+								This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+
+							</p>
+						</div>
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+	</div>
+	
+</div>

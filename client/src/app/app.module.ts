@@ -22,6 +22,13 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+/**/
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+/**/
 
 /*Components*/
 import { FooterComponent } from './components/footer/footer.component';
@@ -36,53 +43,57 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorComponent } from './components/error/error.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ViewNewsComponent } from './components/view-news/view-news.component';
-
+import { SavesComponent } from './components/saves/saves.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FooterComponent,
-    NavbarComponent,
-    NotificationsComponent,
-    SearhComponent,
-    LoginComponent,
-    SignUpComponent,
-    HomeComponent,
-    ToastsComponent,
-    VerifyCodeComponent,
-    StopwatchComponent,
-    CreateNewComponent,
-    ProfileComponent,
-    ErrorComponent,
-    SettingsComponent,
-    ViewNewsComponent,
+  AppComponent,
+  FooterComponent,
+  NavbarComponent,
+  NotificationsComponent,
+  SearhComponent,
+  LoginComponent,
+  SignUpComponent,
+  HomeComponent,
+  ToastsComponent,
+  VerifyCodeComponent,
+  StopwatchComponent,
+  CreateNewComponent,
+  ProfileComponent,
+  ErrorComponent,
+  SettingsComponent,
+  ViewNewsComponent,
+  SavesComponent,
 
-   
+
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    ToastNotificationsModule,
-    ToastrModule.forRoot({
-      timeOut: 3080,
-      positionClass : 'toast-top-right',
-      preventDuplicates : true,
-      progressBar : true,
-    }),
-    HttpClientModule,
-    FormsModule,
-    AngularEditorModule,
-    ImageCropperModule,
-    InfiniteScrollModule,
+  BrowserModule,
+  AppRoutingModule,
+  ReactiveFormsModule,
+  BrowserAnimationsModule,
+  ToastNotificationsModule,
+  ToastrModule.forRoot({
+    timeOut: 3080,
+    positionClass : 'toast-top-right',
+    preventDuplicates : true,
+    progressBar : true,
+  }),
+  HttpClientModule,
+  FormsModule,
+  AngularEditorModule,
+  ImageCropperModule,
+  InfiniteScrollModule,
+  provideFirebaseApp(() => initializeApp(environment.firebase)),
+  provideFirestore(() => getFirestore()),
   ],
   providers: [
-    ToastsComponent,
-    AuthGuard,
-    NavbarComponent,
+  ToastsComponent,
+  AuthGuard,
+  NavbarComponent,
+  { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
   ],
   bootstrap: [AppComponent]
 })

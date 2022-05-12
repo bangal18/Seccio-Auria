@@ -1,6 +1,8 @@
 // const validator = require('validator');
 const globalFunctions = require('../global/globalFunctions');
 const modelUserInfo = require('../model/UserInfo.model');
+const modelNotifications = require('../model/notifications.model');
+const bcrypt = require("bcrypt");
 
 exports.getUserByNicknameEmail = function (req, res){
     console.log(req.body)
@@ -34,11 +36,13 @@ exports.isFollowing = async function (req, res) {
 
 exports.follow = async function (req, res) {
     let data = await modelUserInfo.follow(req.body.userId, req.body.followerId);
+    await modelNotifications.setNewNotification(req.body.userId, req.body.followerId, 1, 0, null);
     res.send(data);
 }
 
 exports.unfollow = async function (req,res){
     let data = await modelUserInfo.unfollow(req.params.user_id, req.params.follower_id);
+    await modelNotifications.removeNotification(req.params.user_id, req.params.follower_id, 1)
     res.send(data)
 }
 
@@ -66,4 +70,22 @@ exports.getUserByTag = async function (req,res) {
     console.log(req.params)
     // console.log(data)
     res.send(data);
+}
+
+exports.updatePassword = async function (req, res){
+    let user = await modelUserInfo.getUserById(req.body.id);
+    let compare = await bcrypt.compare(req.body.passwords.currentPassword,user.user.password);
+    
+    if(!compare){
+        res.send({status : 0, message : 'Current password is incorrect'});
+        return;
+    }
+    if(req.body.passwords.newPassword != req.body.passwords.confirmNewPassword){
+        res.send({status : 0, message : 'Passwords are not the same'});
+        return;
+    }
+
+    let password = await bcrypt.hash(req.body.passwords.newPassword,10);
+    let data = await modelUserInfo.updatePassword(password, req.body.id)
+    res.send({status: 1, message : 'Passwords changed successfully!'});
 }

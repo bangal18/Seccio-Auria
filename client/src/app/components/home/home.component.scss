@@ -110,3 +110,49 @@ h1{
   object-fit: cover;
 }
 
+
+  
+/* Tooltip */
+.apiNews .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #27292a;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.apiNews .tooltiptext::after {
+    position: absolute;         
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #27292a transparent transparent transparent;
+}
+
+.apiNews:hover .tooltiptext {
+    visibility: visible;
+}
+
+.apiNews {
+    position: relative;
+    display: inline-block;
+}
+
+
+.ir-arriba {
+	display:none;
+	padding:15px;
+	background:#27292a;
+	font-size:20px;
+	color:#fff;
+	cursor:pointer;
+	position: fixed;
+	bottom:20px;
+	right:20px;
+	z-index: 1;
+}
