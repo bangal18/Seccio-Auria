@@ -29,9 +29,10 @@
                     class="error-message">*Password is required
                 </span>
             </div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div><a class="forgot" href="#">Forgot your email or password?</a>
+            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+            <a class="forgot" role="button" (click)="recoverPassword()">Forgot your email or password?</a>
             <div> <button class="btn btn-lg btn-block btn-primary w-100" style="background-color: #dd4b39;" type="button" (click)="loginGoogle()"><i class="fab fa-google me-2"></i> Login with google</button></div>
-            <div><button class="btn btn-lg btn-block btn-primary w-100" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Login with facebook</button></div>
+           <!--  <div><button class="btn btn-lg btn-block btn-primary w-100" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Login with facebook</button></div> -->
         </form>
     </section>
 </div>

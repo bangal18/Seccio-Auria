@@ -72,6 +72,7 @@ export class AuthService {
     sessionStorage.removeItem('currentUser');
   }
 
+
   loggedIn () : boolean {
     return !!sessionStorage.getItem('token');
   }

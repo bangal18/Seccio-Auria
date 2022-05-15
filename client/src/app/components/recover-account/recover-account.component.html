@@ -1,0 +1,47 @@
+<div class="recover-account-container">
+    <div class="col-lg-6 d-none d-lg-flex align-items-center gradient-custom-2">
+        <div class="text-white px-3 py-4 p-md-5 mx-md-4 eslogan">
+          <h2 class="mb-4">We are more than just a company</h2> 
+          <p class="small mb-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <div>
+            <h4>Don't have an account?</h4>
+            <button class="btn btn-outline-light">Sign Up</button>
+        </div>
+    </div>
+</div>
+
+<section class="recover-account-dark">
+    <form  *ngIf="!messageEmail" (ngSubmit)="submit()" [formGroup]="recoverAccountForm">
+        <div class="illustration"><img src="assets/images/logo_transparent.png"  width="150" alt=""></div>
+        <div class="mb-3">
+            <input type="nickname" class="form-control" name="nickname" placeholder="Nickname" formControlName="nickname"/>
+            <span *ngIf="recoverAccountForm.get('nickname')?.touched && recoverAccountForm.get('nickname')?.errors?.['required']"
+            class="error-message">*Nickname is required
+        </span>
+    </div>
+    <div class="mb-3">
+        <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email"/>
+        <span *ngIf="recoverAccountForm.get('email')?.touched && recoverAccountForm.get('email')?.errors?.['required']"class="error-message">*Email is required
+        </span>
+        <span *ngIf="recoverAccountForm.get('email')?.touched && recoverAccountForm.get('email')?.errors?.['email']" class="error-message">*Email format is not correct
+        </span>
+    </div>
+    <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" 
+        [disabled]="!this.recoverAccountForm.valid">Send</button></div>
+    </form>
+    <div *ngIf="messageEmail" class="mt-3">
+        <div class="d-flex justify-content-center">
+            <img src="assets/images/logo_transparent.png" width="350" alt="350"/>
+        </div>
+        <div style="text-align:center;" class="">
+            <h1>We send a email with the new password</h1>     
+        </div>
+    </div>
+
+</section>
+</div>
+
+

@@ -59,9 +59,16 @@ exports.addLogRegister = async function(req, res) {
   res.send({
     status : 1, 
     message : 'Succesfuly registry', 
-    data : data, 
     token : token, 
-    user : user
+    user : {
+      name : user.name, 
+      nickname : user.nickname,
+      photo : user.photo,
+      id : user.id, 
+      email : user.email,
+      user_status : 0,
+      role : 2
+    }
   });
 }
 
@@ -72,7 +79,8 @@ exports.signUpGoogle = async function (req, res){
   let password = globalFunctions.randomPassword();
   user['password'] = password;
   user.password = await bcrypt.hash(user.password,10);
-  
+  user['user_status'] = 0;
+  user['role'] = 2;
 
   const token = jwt.sign({
     nickname : user.nickname, 

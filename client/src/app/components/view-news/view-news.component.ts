@@ -16,15 +16,19 @@ export class ViewNewsComponent implements OnInit {
   public liked : boolean = false;
   public saved : boolean = false;
 
+  public sessionUser : any = this.main.getCurrentUser().currentUser;
+
   constructor(public main:MainService, public router : ActivatedRoute) { }
 
   async ngOnInit() {
     let id : any = this.router.snapshot.paramMap.get('id');
     let dataNews = await this.main.provider.getNewsById(id);
     this.news = dataNews.content[0];
+    
     if(!this.news){ this.main.redirectTo('error'); return }
     let text = this.deCodeNewsText(this.news.news_text.data);
     document.getElementById('news-text')!.innerHTML = text;
+    
     let dataUser = await this.main.provider.getUserById(this.news.user_id);
     this.user = dataUser.user;
     this.followers = await this.main.provider.getFollowers(this.news.user_id);

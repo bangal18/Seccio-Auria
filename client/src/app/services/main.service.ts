@@ -14,6 +14,7 @@ export class MainService {
   public title = 'client';
   public params! : any;
   public notifications! : any;
+  public userError! : any;
   constructor(
     public router: Router,
     
@@ -77,5 +78,29 @@ export class MainService {
 
     time = (miliseconds % (1000 * 60)) / 1000;
     return Math.floor(time) + "s"
+  }
+
+
+  userEnabled() : boolean {
+    let currentUser : any = sessionStorage.getItem('currentUser');
+    let session : any = JSON.parse(currentUser);
+    if(session.user_status == 1 || session.user_status == 2) {
+      return false;
+    }
+    return true; 
+  }
+
+  setParamsErrorUser(params:any){
+    this.userError = params;
+  }
+
+  getParamsErrorUser(){
+    let params = this.userError; 
+
+    return params;
+  }
+
+  deleteParamsErrorUser(){
+    delete this.userError;
   }
 }

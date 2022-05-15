@@ -29,9 +29,20 @@
 				</li>
 			</ul>
 
-			<div *ngIf="this.showButtonFollow" class="mb-3">
+			<div *ngIf="showButtonFollow && privileges!=1" class="mb-3">
 				<a *ngIf="!this.following" class="btn btn-outline-primary mb-2" (click)="this.follow()">Follow</a>
 				<a *ngIf="this.following" class="btn btn-primary mb-2" (click)="this.unFollow()">Following</a>
+			</div>
+			<div *ngIf="privileges==1" class="mb-3">
+				
+				<button *ngIf="user.user.user_status==0" class="btn btn-outline-dark" (click)="action=1"  data-bs-toggle="modal" data-bs-target="#exampleModal2">Disabled</button>
+				
+				<button *ngIf="user.user.user_status==1" class="btn btn-dark" (click)="action=0"  data-bs-toggle="modal" data-bs-target="#exampleModal2">Enable</button>
+				
+				<button class="btn btn-outline-danger" (click)="action=2"  data-bs-toggle="modal" data-bs-target="#exampleModal2">Delete</button>
+
+
+				<app-admin-alert [user]="user.user" [action]="action"></app-admin-alert>
 			</div>
 		</div>
 
@@ -44,14 +55,14 @@
 					<h4 class="h3 mb-3">Followers</h4>
 
 					<div class="mb-1">
-						<span class="h1 font-weight-light text-muted">{{followers?.data.total}}</span>
+						<span role="button" class="h1 font-weight-light text-muted" (click)="ff=followers?.data" data-bs-toggle="modal" data-bs-target="#exampleModal3" >{{followers?.total}}</span>
 					</div>
 				</div>
 
 				<div class="col-lg-8">
 					<h4 class="h3 mb-3">Following</h4>
 					<div class="mb-1">
-						<span class="h1 font-weight-light text-muted">{{this.followings?.data.total}}</span>
+						<span role="button" class="h1 font-weight-light text-muted" (click)="ff=followings?.data" data-bs-toggle="modal" data-bs-target="#exampleModal3" >{{followings?.total}}</span>
 					</div>
 				</div>
 			</div>
@@ -98,39 +109,65 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit news</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       	Are you sure you want to edit the news?
-       	If you edit the new, the main cover will be deleted.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="edit(editNew)">Yes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Edit news</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you sure you want to edit the news?
+				If you edit the new, the main cover will be deleted.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="edit(editNew)">Yes</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete news</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       	Are you sure you want to delete the news?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="delete(deleteId)">Yes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Delete news</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you sure you want to delete the news?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="delete(deleteId)">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal followers & followings -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Delete news</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div *ngFor="let f of ff ">
+					<div role="button" data-bs-dismiss="modal" class="d-flex justify-content-between marco" (click)="goToProfile(f.nickname)">
+						<div>
+							<img class="img-fluid rounded-circle rounded" [src]="f.photo" alt="Image description" width="94">
+						</div>
+						<div class="d-flex align-items-center">
+							<h3>@{{f.nickname}}</h3>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

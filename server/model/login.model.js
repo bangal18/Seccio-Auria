@@ -5,7 +5,7 @@ exports.loginGoogle = function (email){
 	try{
         return new Promise((resolve, reject) => {
 
-            let sql = "SELECT name, nickname, email, id, photo FROM users WHERE email = ?";
+            let sql = "SELECT name, nickname, email, id, photo, role_id, user_status FROM users WHERE email = ?";
             let value = [email];
             
             connection.query(sql, value, async (err, result) => {

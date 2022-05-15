@@ -25,6 +25,16 @@
 				<textarea rows="5" class="form-control" class="w-100 about_me" formControlName="about_me" value="{{user?.user.about_me}}"></textarea>
 			</div>
 
+			<div class="mt-4">
+				<select class="form-select" formControlName="category" aria-label="Default select example">
+					<option id="1" value="1">Random</option>
+					<option id="2" value="2">Games</option>
+					<option id="3" value="3">Music</option>
+					<option id="4" value="4">Education</option>
+					<option id="5" value="5">Sience</option>
+				</select>				
+			</div>
+
 			<div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" [disabled]="this.disabledButton"
 				>Save</button>
 			</div>
@@ -111,31 +121,31 @@
 					class="error-message">
 				*The confirm password is weak. The confirm password must have at least one capital letter, a number and a minimum length of 8 characters.</span>
 
-				</div>
-
-				<div class="m-2">
-					<input type="password" class="w-100 p-2" id="" formControlName="confirmNewPassword" placeholder="Confirm new password">
-
-					<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['required']"
-					class="error-message">*Required</span>
-
-
-					<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['pattern']" 
-					class="error-message">
-				*The confirm password is weak. The confirm password must have at least one capital letter, a number and a minimum length of 8 characters.</span>
-
-			</div>
-			<!-- data-bs-dismiss="modal" -->
-			<div class="d-flex justify-content-center"> 
-				<button type="button" (click)="changePasswordSubmit()" [disabled]="!changePasswordForm.valid"  class="btn btn-outline-success modal-button">
-					Change password
-				</button>  
 			</div>
 
-		</form>
+			<div class="m-2">
+				<input type="password" class="w-100 p-2" id="" formControlName="confirmNewPassword" placeholder="Confirm new password">
+
+				<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['required']"
+				class="error-message">*Required</span>
+
+
+				<span *ngIf="changePasswordForm.get('confirmNewPassword')?.touched && changePasswordForm.get('confirmNewPassword')?.errors?.['pattern']" 
+				class="error-message">
+			*The confirm password is weak. The confirm password must have at least one capital letter, a number and a minimum length of 8 characters.</span>
+
+		</div>
+		<!-- data-bs-dismiss="modal" -->
+		<div class="d-flex justify-content-center"> 
+			<button type="button" (click)="changePasswordSubmit()" [disabled]="!changePasswordForm.valid"  class="btn btn-outline-success modal-button">
+				Change password
+			</button>  
+		</div>
+
+	</form>
 
 
 
-	</div>
+</div>
 </div>
 </div>

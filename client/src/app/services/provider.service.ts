@@ -404,4 +404,33 @@ export class ProviderService {
     })
 
   }
+
+  async adminActions(userId:number, status:number) {
+    const body = JSON.stringify({userId : userId, status : status});
+    return new Promise<any>((resolve, reject) =>{
+      this.request.post("/post/changeStatus", body,
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        });
+
+    })
+  }
+
+  async getUserByNicknameEmail(user : any){
+    const body = JSON.stringify(user);
+    return new Promise<any>((resolve, reject) =>{
+      this.request.post("/get/user", body, 
+        (data : any)=>{
+          resolve(data);
+        },
+        (err : any)=>{
+          resolve(err);
+        })
+    })
+  }
 }
+
+

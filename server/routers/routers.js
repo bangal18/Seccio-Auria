@@ -8,7 +8,6 @@ var controllerNotifications = require('../controller/notification.controller');
 const multer  = require('../libs/multer');
 
 var photoController = require('../controller/photo.controller') 
-
 /*Registre*/
 router.post('/post/user',controllerSignUp.addLogRegister);
 router.post('/post/check/user',controllerSignUp.registerConfigurations);
@@ -42,6 +41,7 @@ router.get('/get/isFollowing/:idCurrentUser/:idUser', controllerUserInfo.isFollo
 router.get('/get/search/:nickname', controllerUserInfo.getUsersSearch);
 router.get('/get/searchByTag/:tagId/:index', controllerUserInfo.getUserByTag)
 router.post('/post/follow/', controllerUserInfo.follow);
+router.post('/post/changeStatus', controllerUserInfo.changeStatus)
 router.delete('/delete/unfollow/:user_id/:follower_id', controllerUserInfo.unfollow);
 
 /*Inons*/

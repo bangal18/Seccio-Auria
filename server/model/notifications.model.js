@@ -46,14 +46,14 @@ exports.getNotificationsById = function(id){
 		let sql = "SELECT nw.main_cover, nw.id, u.nickname, u.name, u.photo, n.* FROM users AS u "+ 
 		"INNER JOIN notifications AS n ON u.id = n.user_id " + 
 		"LEFT JOIN news AS nw ON nw.id = n.news_id " + 
-		"WHERE n.user_notification_id = ? ORDER BY n.id DESC;" 
+		"WHERE n.user_notification_id = ? AND u.user_status != 2 ORDER BY n.id DESC;" 
 		"" + 
 		"";
 		let values = [id];	
 
 		return new Promise(function (resolve, reject) {
 
-			connection.query(sql, values, function (err, result,fields){
+			connection.query(sql, values, function (err, result,sfields){
 				if(err){ console.log(err); resolve({staus : 0, message : "Error database"}); return;}
 				resolve( { status: 1,result : result } );
 			});

@@ -22,10 +22,14 @@ export class LoginComponent implements OnInit {
     public navBarStatus : NavbarComponent,
     private formBuilder : FormBuilder,
     public auth: AngularFireAuth
-  ) {}
+    ) {}
 
   ngOnInit(): void {
     this.loginForm = this.initForm();
+  }
+
+  recoverPassword() { 
+    this.main.redirectTo('recover-account');
   }
 
   async submit(){
@@ -42,10 +46,15 @@ export class LoginComponent implements OnInit {
       this.disabledButton = false;
       return;
     }
-    
+
+    if(data.user.user_status){
+      this.main.setParamsErrorUser(data.user);
+      this.main.redirectTo('error-user');
+      return;
+    }
+
     sessionStorage.setItem('token', data.token);
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-
     location.href = 'http://localhost:4200/home'; 
   }
 
@@ -66,6 +75,11 @@ export class LoginComponent implements OnInit {
 
     if(!data.status){
       this.main.toastr.warning(data.message);
+      return;
+    }
+
+    if(data.user.user_status){
+      this.main.redirectTo('error404')
       return;
     }
 

@@ -141,8 +141,8 @@ async submit() {
 
   let sessions = this.main.getCurrentUser();
   let photo = await this.main.provider.sendMainInfo(this.file);
-  let news = {
-    id : this.editNews.id,
+
+  let news : any = {
     userId : sessions.currentUser.id,
     title : this.newsMainInfoForm.value.title, 
     subTitle :this.newsMainInfoForm.value.subTitle, 
@@ -150,7 +150,7 @@ async submit() {
     newsText : this.myGroup.value.htmlContent1, 
     tags : null
   }
-  if(this.main.getParams()){
+  if(this.main.getParamsNews() == undefined){
    let data = await this.main.provider.addNew(news);
    if(!data){
     this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
@@ -158,6 +158,7 @@ async submit() {
   }
 }
 else{
+  news['id'] = this.editNews.id;
   let data = await this.main.provider.editNew(news);
   if(!data){
     this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");

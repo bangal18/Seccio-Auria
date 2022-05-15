@@ -44,6 +44,11 @@ import { ErrorComponent } from './components/error/error.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ViewNewsComponent } from './components/view-news/view-news.component';
 import { SavesComponent } from './components/saves/saves.component';
+import { HomeAdminComponent } from './components/home/home-admin/home-admin.component';
+import { HomeUserComponent } from './components/home/home-user/home-user.component';
+import { AdminAlertComponent } from './components/profile/admin-alert/admin-alert.component';
+import { ErrorUserComponent } from './components/error-user/error-user.component';
+import { RecoverAccountComponent } from './components/recover-account/recover-account.component';
 
 
 
@@ -66,6 +71,11 @@ import { SavesComponent } from './components/saves/saves.component';
   SettingsComponent,
   ViewNewsComponent,
   SavesComponent,
+  HomeAdminComponent,
+  HomeUserComponent,
+  AdminAlertComponent,
+  ErrorUserComponent,
+  RecoverAccountComponent,
 
 
   ],

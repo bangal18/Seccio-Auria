@@ -37,6 +37,9 @@ export class SettingsComponent implements OnInit {
     this.changePasswordForm = this.initFormChangePassword();
     this.user = await this.main.provider.getUserById(id); 
     this.settingForm = this.initForm();
+    
+    // let option = document.getElementById(this.user.user.tag_id);
+    // option?.setAttribute('selected','true');
     this.changePasswordForm = this.initFormChangePassword();
   }
 
@@ -45,6 +48,7 @@ export class SettingsComponent implements OnInit {
       nickname : [`${this.user.user.nickname}`,[Validators.required]],
       name : [`${this.user.user.name}`,[Validators.required]],
       about_me : [`${this.user.user.about_me}`,[Validators.required]],
+      category : [`${this.user.user.tag_id}`]
     })
   }
 
@@ -96,11 +100,13 @@ export class SettingsComponent implements OnInit {
       nickname: this.settingForm.value.nickname, 
       name : this.settingForm.value.name, 
       about_me : this.settingForm.value.about_me, 
+      tag_id : parseInt(this.settingForm.value.category),
       photo : urlPhoto, 
       email : this.main.getCurrentUser().currentUser.email,
-      oldNickname : this.main.getCurrentUser().currentUser.nickname
+      role : this.main.getCurrentUser().currentUser.role,
+      oldNickname : this.main.getCurrentUser().currentUser.nickname, 
+      user_status : this.main.getCurrentUser().currentUser.user_status,
     } 
-
 
     let data = await this.main.provider.updateProfile(changeProfile);
     if(!data.status){

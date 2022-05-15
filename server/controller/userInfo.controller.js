@@ -2,10 +2,19 @@
 const globalFunctions = require('../global/globalFunctions');
 const modelUserInfo = require('../model/UserInfo.model');
 const modelNotifications = require('../model/notifications.model');
+const mail = require('../mail/mail');
 const bcrypt = require("bcrypt");
 
-exports.getUserByNicknameEmail = function (req, res){
-    console.log(req.body)
+exports.getUserByNicknameEmail = async function (req, res){
+    let data = await modelUserInfo.getUserByNE(req.body.nickname, req.body.email);
+    if(data.status){
+        let code = globalFunctions.randomPassword();
+        let bcryptCode =  await bcrypt.hash(code,10);
+        
+        await modelUserInfo.updatePassword(bcryptCode, data.result.id);
+        mail.sendMail(req.body.email, `New password: ${code}`);
+    } 
+    res.send(data);
 }
 
 exports.getUserByNikname = async function (req,res) {
@@ -18,7 +27,7 @@ exports.getUserById = async function (req,res) {
     res.send(data);
     
 }
-    
+
 exports.getFollowers = async function (req, res) {
     let data = await modelUserInfo.getFollowers(req.params.id);
     res.send(data)
@@ -26,6 +35,7 @@ exports.getFollowers = async function (req, res) {
 
 exports.getFollowing = async function (req, res) {
     let data = await modelUserInfo.getFollowing(req.params.id);
+    // console.log(data)
     res.send(data)
 }
 
@@ -53,10 +63,10 @@ exports.updateUser = async function (req, res){
       if(nicknameExists.data[0].nickname != req.body.oldNickname){
         res.send({staus : 0, message:"The nickname already exist."})
         return;
-      }
     }
-    let data = await modelUserInfo.updateUser(req.body);
-    res.send(data)
+}
+let data = await modelUserInfo.updateUser(req.body);
+res.send(data)
 }
 
 exports.getUsersSearch = async function (req, res) {
@@ -88,4 +98,9 @@ exports.updatePassword = async function (req, res){
     let password = await bcrypt.hash(req.body.passwords.newPassword,10);
     let data = await modelUserInfo.updatePassword(password, req.body.id)
     res.send({status: 1, message : 'Passwords changed successfully!'});
+}
+
+exports.changeStatus = async function(req, res){
+    let data = await modelUserInfo.changeStatus(req.body.userId, req.body.status);
+    res.send(data)
 }

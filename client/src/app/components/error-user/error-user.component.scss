@@ -1,0 +1,126 @@
+.error{
+  width: 100% !important;
+  height:100% !important;
+  padding: 14em;
+}
+
+.u-error {
+  position: relative;
+}
+
+.u-error__title {
+  line-height: 1;
+  font-weight: 700;
+  font-size: 12rem;
+  color: #eaf2f9;
+}
+
+@media (min-width: 768px) {
+  .u-error__title {
+    font-size: 15.5rem;
+  }
+  .u-error__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+
+.u-shape {
+  position: absolute;
+}
+
+.u-shape--centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.u-shape--center-right {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  right: 0;
+}
+
+.u-shape--center-left {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  left: 0;
+}
+
+.u-shape--top-right {
+  top: 0;
+  right: 0;
+}
+
+.u-shape--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.u-shape--position-1 {
+  margin-top: 5vh;
+  margin-right: 6vw;
+}
+
+.u-shape--position-2 {
+  margin-top: -8.13rem;
+  margin-left: -19.06rem;
+}
+
+.u-shape--position-3 {
+  margin-top: 7.5rem;
+  margin-left: 19.06rem;
+}
+
+.u-shape--position-4 {
+  margin-bottom: 5vh;
+  margin-left: 6vw;
+}
+
+.u-shape--position-5 {
+  margin-top: 11vh;
+  margin-right: 8vw;
+}
+
+.u-shape--position-6 {
+  margin-top: -11.88rem;
+  margin-left: 2.5vw;
+}
+
+.u-shape--position-7 {
+  margin-top: 11.25rem;
+  margin-right: 5vw;
+}
+
+.u-shape--position-8 {
+  margin-bottom: 11vh;
+  margin-left: 5vw;
+}
+
+@media (min-width: 768px) {
+  .u-shape--position-1 {
+    margin-top: 11vh;
+    margin-right: 12vw;
+  }
+  .u-shape--position-2 {
+    margin-top: -8.13rem;
+    margin-left: -19.06rem;
+  }
+  .u-shape--position-3 {
+    margin-top: 7.5rem;
+    margin-left: 19.06rem;
+  }
+  .u-shape--position-4 {
+    margin-bottom: 11vh;
+    margin-left: 13.5vw;
+  }
+}

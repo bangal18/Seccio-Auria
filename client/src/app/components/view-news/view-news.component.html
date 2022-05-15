@@ -2,7 +2,8 @@
     <div class="container noticia">
         <div class="setup">
             <img role="button" [src]="user.photo" class="rounded-circle rounded" (click)="this.main.redirectTo(user.nickname)"/>
-            <div class="icons">
+            <div *ngIf="sessionUser.role == 2" class="icons">
+                
                 <a *ngIf="!liked" (click)="like()"  type="button" ><i class="bi icons bi-star" style="color:black"></i></a>
                 <a *ngIf="liked" (click)="unlike()" type="button" ><i class="bi icons bi-star-fill" style="color:black;"></i></a>
 
@@ -31,7 +32,7 @@
         <p>Folowers: {{followers.data.total}}</p>
         <p>Email: {{user.email}}</p>
         <!-- <button class="btn btn-outline-primary">Folow</button> -->
-        <div *ngIf="user.id != currentUserId">
+        <div *ngIf="user.id != currentUserId && sessionUser.role == 2">
          <a *ngIf="!this.isFollowing" class="btn btn-outline-primary mb-2" (click)="this.follow()">Follow</a>
          <a *ngIf="this.isFollowing" class="btn btn-primary mb-2" (click)="this.unFollow()">Following</a>
      </div>

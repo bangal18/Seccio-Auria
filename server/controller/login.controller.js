@@ -11,6 +11,7 @@ exports.addLogLogin = async function (req,res){
 	
 	let user = await modelUserInfo.getUserByNikname(filter.params.nickname);
 	if(!user.status) { res.send(user); return}
+ 
 
 	let compare = await bcrypt.compare(filter.params.password,user.user.password);
 	if(!compare) { res.send({status : 0, message : "Invalid nickname or password"}); return;}
@@ -28,7 +29,9 @@ exports.addLogLogin = async function (req,res){
   			name : user.user.name,
   			nickname : user.user.nickname,
   			photo : user.user.photo,
-  			email : user.user.email
+  			email : user.user.email, 
+  			role : user.user.role_id, 
+  			user_status : user.user.user_status
   		},
   	});
 }

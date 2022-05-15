@@ -5,7 +5,7 @@ exports.getUserByNicknameEmail = async function (nickname, email) {
     try{
         return new Promise((resolve, reject) => {
 
-            let sql = "SELECT nickname, email FROM users WHERE nickname = ? OR email = ?";
+            let sql = "SELECT nickname, email FROM users WHERE (nickname = ? OR email = ?)";
             let value = [nickname, email];
             
             db.query(sql, value, async (err, result) => {
@@ -22,13 +22,35 @@ exports.getUserByNicknameEmail = async function (nickname, email) {
 
 }
 
-exports.getUserByNikname = async function (nickname) {
+exports.getUserByNE = async function (nickname, email) {
     try{
+        let sql = "SELECT id, nickname, email FROM users WHERE nickname = ? AND email = ?";
+        let value = [nickname, email];
+
         return new Promise((resolve, reject) => {
 
-            let sql = "SELECT * FROM users WHERE nickname = ?";
-            let value = [nickname];
-            
+            db.query(sql, value, async (err, result) => {
+                if(err) {console.log("Error conection db") ;resolve({status: 0, message : "Error connecion"}); return;c}
+                if (result.length == 0) {resolve({ status: 0, message: "Nickname or Email not exisit." }); return; }
+                else resolve({ status: 1, result : result[0] ,message: "Succesfuly!" })
+            });
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+
+exports.getUserByNikname = async function (nickname) {
+    try{
+
+        let sql = "SELECT * FROM users WHERE BINARY nickname = ? AND user_status != 2";
+        let value = [nickname];
+
+        return new Promise((resolve, reject) => {
+
             db.query(sql, value, async (err, result) => {
                 if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
                 if (result.length == 0) {resolve({ status: 0, message: "Nickname or password incorrect" }); return; }
@@ -65,18 +87,21 @@ exports.getFollowing = async function (id) {
     try{
         return new Promise( (resolve, reject) => {
 
-            let sql = "SELECT COUNT(*) AS total FROM followers WHERE user_id = ? "
+            let sql = "SELECT * FROM followers AS f "+ 
+            "INNER JOIN users AS u ON u.id = f.user_id "+
+            "INNER JOIN users AS us ON us.id = f.follower_id "+
+            "WHERE f.user_id = ? AND us.user_status != 2"
             let value = [id];
 
             db.query(sql,value, async (err, result)=>{
-                if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
-                resolve({ status: 1, data : result[0] });
+                if(err) {console.log(err); resolve({status :0, message : "Error connecion"}); return;}
+                resolve({ status: 1, data : result, total : result.length });
             });
 
         });
 
     }catch(error){
-
+        console.log(error);
     }
 }
 
@@ -84,12 +109,16 @@ exports.getFollowers = async function (id) {
     try{
         return new Promise( (resolve, reject) => {
 
-            let sql = "SELECT COUNT(*) AS total FROM followers WHERE follower_id = ? "
+            let sql = 
+            "SELECT * FROM followers AS f "+
+            "INNER JOIN users AS u ON u.id = f.follower_id "+
+            "INNER JOIN users AS us ON us.id = f.user_id "+
+            "WHERE f.follower_id = ? AND us.user_status != 2"
             let value = [id];
 
             db.query(sql,value, async (err, result)=>{
                 if(err) {console.log("Error conection db"); resolve({status :0, message : "Error connecion"}); return;}
-                resolve({ status: 1, data : result[0] });
+                resolve({ status: 1, data : result, total : result.length });
             });
 
         });
@@ -156,13 +185,13 @@ exports.isFollowing = async function(user_id, follower_id){
 exports.updateUser = async function (user) {
     try{
 
-        let sql = "UPDATE users SET name = ?, nickname = ?, photo = ? ,about_me = ? WHERE id = ?";
-        let values = [user.name, user.nickname, user.photo, user.about_me, user.id];
-
+        let sql = "UPDATE users SET name = ?, nickname = ?, photo = ? ,about_me = ?, tag_id = ? WHERE id = ?";
+        let values = [user.name, user.nickname, user.photo, user.about_me, user.tag_id, user.id];
+        console.log(values)
         return new Promise( (resolve, reject) => {
             db.query(sql, values, async (err, result)=>{
                 if(err) {console.log("Error conection db"); resolve({status: 0, message:"Error conection db"});}
-                // console.log(result)
+                console.log(result)
                 resolve({ status: 1});
             });
         });
@@ -196,7 +225,7 @@ exports.getUsersSearch = function (nickname){
         let sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
         'INNER JOIN tags as t '+ 
         'ON u.tag_id = t.id '+
-        'WHERE nickname REGEXP CONCAT("^", ?)';
+        'WHERE nickname REGEXP CONCAT("^", ?) AND u.user_status != 2';
 
         let value = [nickname];
 
@@ -215,11 +244,11 @@ exports.getUsersSearch = function (nickname){
 
 exports.getUserByTag = function(tag, index){
     try{
-    
-        let sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
+
+        let sql = 'SELECT  u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
         'INNER JOIN tags as t '+ 
         'ON u.tag_id = t.id '+
-        'WHERE u.tag_id = ? '+ 
+        'WHERE u.tag_id = ? AND u.user_status != 2 '+ 
         'LIMIT ?,?';
         index = parseInt(index)
         let value = [tag,index,NEXT_X_NEWS];
@@ -228,6 +257,7 @@ exports.getUserByTag = function(tag, index){
             sql = 'SELECT u.id, u.name, u.nickname, u.about_me, u.photo, u.email, t.name as tag FROM users as u '+ 
             'INNER JOIN tags as t '+ 
             'ON u.tag_id = t.id ' +
+            'WHERE u.user_status != 2 ' +
             'LIMIT ?,?' ;
             value = [index, NEXT_X_NEWS];
         }
@@ -262,4 +292,22 @@ exports.updatePassword = function (password, id){
         console.log(err)
     }
 
+}
+
+exports.changeStatus = function(id, status){
+    try{
+        let sql = `UPDATE users SET user_status = ? WHERE id = ?`;        
+        let values = [status, id]
+        return new Promise ((resolve, reject)=>{
+
+            db.query(sql, values, function (err, result,fields){
+                if(err){ resolve({staus : 0, message : "Error database"}); return;}
+                resolve( { status: 1,lastId: result.insertId } );
+            });
+        });
+
+
+    }catch(err){
+        console.log(err)
+    }
 }
