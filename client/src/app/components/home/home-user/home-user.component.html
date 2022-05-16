@@ -1,0 +1,177 @@
+ 
+<div class="hgroup">
+ 	<h1>Top News</h1>
+ </div>
+<span class="ir-arriba"><i class="bi bi-arrow-up-circle" style="font-size:30px"></i></span>
+<!-- <a class="ir-arriba" title="Volver arriba">
+  <span class="fa-stack">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+  </span>
+</a> -->
+
+ <div class="news-container">
+ 	<div class="news">
+ 		<div class="row news-container-item" infiniteScroll
+ 		[infiniteScrollDistance]="2"
+ 		[infiniteScrollThrottle]="50"
+ 		(scrolled)="this.onScroll()">
+
+        <!-- Normal News -->
+        <div *ngFor="let n of this.news; index as i;" [class]="i%5==0 ? 'col-12' : 'col-12 col-sm-6 col-md-6'">
+            <div *ngIf="i%5==0"  class="card mb-3"><!--class-> noticies--> 
+               <div class="row">
+                  <div class="col-md-4" role="button" (click)="goToNews(n.id)">
+                     <img [src]="'http://localhost:1000/' + n.main_cover" class="img-main2 rounded-start" alt="...">
+                 </div>
+                 <div class="col-md-8">
+                     <div class="card-body">
+                        <div role="button" (click)="goToNews(n.id)">
+                            <h5 class="card-title">{{n.news_title}}</h5>
+                            <div class="acount-content">
+                                <img [src]="n.photo" alt="">
+                                <span>@{{n.nickname}}</span>
+                            </div>
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, unde aliquid dolorem ut nemo culpa laboriosam autem ad, sapiente perspiciatis similique itaque? Soluta quo, exercitationem modi ipsum nihil cupiditate. Vel!
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.creation_date)}} ago</small></p>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="i%5!=0" class="row news-item">
+
+         <div role="button" (click)="goToNews(n.id)" class="col-md-4 img-child">
+          <img [src]="'http://localhost:1000/' + n.main_cover" class="img-child rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div role="button" (click)="goToNews(n.id)">
+            <h5 class="card-title">{{n.news_title}}</h5>
+            <div class="acount-content">
+                <img [src]="n.photo" alt="">
+                <span>@{{n.nickname}}</span>
+            </div>
+            <p class="card-text">
+                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+
+            </p>
+            <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.creation_date)}} ago</small></p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- API can read -->
+
+
+<div *ngIf="apiNewsRead" class="mb-3">
+    <h1>Top external news </h1>
+</div>
+<div *ngFor="let n of apiNewsRead; index as i;" [class]="i%5==0 ? 'col-12 apiNews' : 'col-12 col-sm-6 col-md-6 apiNews'">
+    <span class="tooltiptext">Will be open in a new window</span>
+    <div *ngIf="i%5==0"  class="card mb-3"><!--class-> noticies--> 
+        <div class="row">
+            <div class="col-md-4" role="button" (click)="goToApiNewsRead(n)">
+                <img [src]="n.urlToImage ? n.urlToImage : 'https://picsum.photos/200?random='+i" class="img-main2 rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div role="button" (click)="goToApiNewsRead(n)">
+                        <h5 class="card-title">{{n.title}}</h5>
+                        <div class="acount-content">
+                            <!-- <img src="img/xavineta.jpg" alt=""> -->
+                            <span>{{n.author}}</span>
+                        </div>
+                        <p class="card-text">
+                         {{n.description}}
+                     </p>
+                     <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.publishedAt)}} ago</small></p>    
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div *ngIf="i%5!=0" class="row news-item">
+
+     <div role="button" (click)="goToApiNewsRead(n)" class="col-md-4 img-child">
+      <img [src]="n.urlToImage ? n.urlToImage : 'https://picsum.photos/200?random='+i" class="img-child rounded-start" alt="...">
+  </div>
+  <div class="col-md-8">
+    <div role="button" (click)="goToApiNewsRead(n)">
+        <h5 class="card-title">{{n.title}}</h5>
+        <p class="card-text">
+            {{n.description}}
+        </p>
+        <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.publishedAt)}} ago</small></p>
+    </div>
+
+</div>
+</div>
+</div>
+
+
+
+
+<!-- API redirection -->
+<div *ngFor="let n of apiNewsNoRead; index as i;" [class]="i%5==0 ? 'col-12 apiNews' : 'col-12 col-sm-6 col-md-6 apiNews'">
+    <span class="tooltiptext">Will be open in a new window</span>
+    <div *ngIf="i%5==0"  class="card mb-3"><!--class-> noticies--> 
+        <div class="row">
+            <div class="col-md-4" role="button" (click)="goToApiNewsNoRead(n)">
+                <img [src]="n.image ? n.image : 'https://picsum.photos/200?random='+i" class="img-main2 rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div role="button" (click)="goToApiNewsNoRead(n)">
+                        <h5 class="card-title">{{n.title}}</h5>
+                        <div class="acount-content">
+                            <!-- <img src="img/xavineta.jpg" alt=""> -->
+                            <span>{{n.author}}</span>
+                        </div>
+                        <p class="card-text">
+                         {{n.description}}
+                     </p>
+                     <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.published_at)}} ago</small></p>    
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div *ngIf="i%5!=0" class="row news-item">
+
+     <div role="button" (click)="goToApiNewsNoRead(n)" class="col-md-4 img-child">
+      <img [src]="n.image ? n.image : 'https://picsum.photos/200?random='+i" class="img-child rounded-start" alt="...">
+  </div>
+  <div class="col-md-8">
+    <div role="button" (click)="goToApiNewsNoRead(n)">
+        <h5 class="card-title">{{n.title}}</h5>
+        <p class="card-text">
+            {{n.description}}
+        </p>
+        <p class="card-text"><small class="text-muted">Last updated {{main.calculateDate(n.published_at)}} ago</small></p>
+    </div>
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+<div class="justify-content-center loading" style="padding:10em" [style.display]="loading ? 'flex' : 'none'"> 
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+
+

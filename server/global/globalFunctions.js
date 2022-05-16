@@ -30,3 +30,14 @@ exports.getDateTypeSQL = function () {
     return ts.toISOString().slice(0, 19).replace('T', ' ');
 
 }
+
+exports.randomPassword = function (){
+    let code = "";
+    let pattern = "1234567890abcdefghijklmnopqrstuvwxyz1234568790ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    for (let index = 0; index < 20; index++) {
+        let randomIndex = Math.floor((Math.random() * (pattern.length-1 )) + 0);
+        code += pattern.charAt(randomIndex)
+    }
+    return code;
+
+}

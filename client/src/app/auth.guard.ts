@@ -23,5 +23,7 @@ export class AuthGuard implements CanActivate {
     this.main.redirectTo('/login');
     return false;
   }
+
+
   
 }

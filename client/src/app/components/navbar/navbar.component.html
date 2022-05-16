@@ -42,10 +42,11 @@
       <div class="collapse navbar-collapse" id="menu">
         
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+        
           <li class="nav-item"><a type="button" class="nav-link" (click)="this.main.redirectTo('home')">Home</a></li>
           <li class="nav-item">
-            <a class="nav-link position-relative" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Notifications
-              <span class="position-absolute top-90 start-80 translate-middle p-1 bg-danger border border-light rounded-circle" >
+            <a class="nav-link position-relative" data-bs-toggle="offcanvas" href="#offcanvasWithBackdrop" role="button" aria-controls="offcanvasWithBackdrop" (click)="notificationsViewed()">Notifications 
+              <span *ngIf="main.getParams()" class="position-absolute top-90 start-80 translate-middle p-1 bg-danger border border-light rounded-circle" >
               </span>
             </a>
           </li>
@@ -56,13 +57,14 @@
 
         <div class="dropdown dropstart profile ">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img  [src]="'http://localhost:1000/' + this.getUser.photo" class="rounded-circle rounded">
+            <img [src]="this.getUser.photo" class="rounded-circle rounded">
           </a>
           
           <ul class="dropdown-menu" aria-labelledby="dropdownUser1" style="">
             <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('create-new')">Create a new</a></li>
             <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('settings')">Settings</a></li>
             <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('profile')">Profile</a></li>
+            <li><a type="button" class="dropdown-item" (click)="this.main.redirectTo('saves')">Saves</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" role="button" (click)="this.signOut()">Sign out</a></li>
           </ul>

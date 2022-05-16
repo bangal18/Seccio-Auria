@@ -1,0 +1,114 @@
+
+.recover-account-container {
+  overflow-x: hidden;  
+  //Mirar en el inspecionar elemento para tener el degradado
+  // background : -moz-radial-gradient(bottom right, rgba(208, 208, 208, 1.0), rgba(52, 52, 52, 1.0));
+  background:  var(--form-background);
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.recover-account-container-info{
+  margin:2em;
+  padding-right: 2em;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+
+  
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/****/
+
+.gradient-custom-2{
+  border-left: 3px solid #282D32;
+}
+
+/*****/
+
+.recover-account-dark {
+  /* width:450px; */
+  width:550px;
+  /* background: #f5f6f6 url(img/2062162.jpg); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.recover-account-dark form {
+  margin: 2em;
+  background-color: #282D32; 
+  box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(255, 255, 255, 0.19);
+  padding: 40px;
+  border-radius: 8px;
+  color: rgb(252, 252, 252);
+  box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+}
+
+.recover-account-dark .illustration {
+  text-align: center;
+  padding: 15px 0 20px;
+  font-size: 100px;
+  color: #2980ef;
+}
+
+.recover-account-dark form .form-control {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #d8dadc;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+
+}
+
+.recover-account-dark form .btn-primary {
+  background: #214a80;
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  margin-top: 26px;
+  text-shadow: none;
+  outline: none;
+}
+
+.recover-account-dark form .btn-primary:hover, .recover-account-dark form .btn-primary:active {
+  background: #214a80;
+  outline: none;
+}
+
+.recover-account-dark form .forgot {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.recover-account-dark form .forgot:hover, .recover-account-dark form .forgot:active {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.recover-account-dark form .btn-primary:hover {
+  background-color: #3b7ed6;
+}
+
+.error-message{
+  font-size:12px;
+  display:flex;
+  justify-content: center;
+  color:red;
+}

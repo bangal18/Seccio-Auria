@@ -75,7 +75,7 @@
      <div *ngFor="let channel of this.channels?.result" type="button" class="col-lg-3 col-md-4 col-sm-6 col-12 channel-continer" (click)="this.goToProfile(channel.nickname)">
       <div *ngIf="this.channels.result?.length" class="channel">
         <div class="d-flex justify-content-center">
-          <img [src]="'http://localhost:1000/' + channel.photo" class="card-img-top rounded-circle rounded" alt="...">
+          <img [src]="channel.photo" class="card-img-top rounded-circle rounded" alt="...">
         </div>
         <div class="card-body">
           <h5 class="card-title">@{{channel.nickname}}</h5>

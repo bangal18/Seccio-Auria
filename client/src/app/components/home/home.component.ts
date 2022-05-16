@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MainService } from '../../services/main.service';
-
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-home',
@@ -8,33 +8,14 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public text! : any; 
-  public lastId : number = -1;
-  public loading = false;
-  public news: any = [];
-  
+ 
+  public privileges! : number;
   constructor(public main:MainService) { }
 
-  async ngOnInit()  {
-   this.loadedNextXNews();
-   
+  ngOnInit()  {
+    this.privileges = this.main.getCurrentUser().currentUser.role;
   }
 
-  onScroll(){
-    this.loading = true;
-    this.loadedNextXNews();
-  }
-
-  async loadedNextXNews() {
-    let id = 0;
-    if(this.news.length != 0) id = this.news.length ;
-    if(this.lastId == id){return;} 
-    this.lastId = id;
-    
-    let data = await this.main.provider.loadNextByNews(id);
-    this.news = this.news.concat(data.content);
-    this.loading = false;
-  }
 
 
 

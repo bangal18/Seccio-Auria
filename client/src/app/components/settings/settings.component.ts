@@ -3,6 +3,8 @@ import { MainService } from '../../services/main.service';
 import { ImageCroppedEvent  } from 'ngx-image-cropper';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import * as $ from "jquery";
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -23,14 +25,22 @@ export class SettingsComponent implements OnInit {
   public settingForm! : FormGroup;
   public disabledButton = false;
 
+  public changePasswordForm! : FormGroup;
+  public diabledButtonP = true;
+
   constructor(public main:MainService, private formBuilder : FormBuilder,) { }
 
   async ngOnInit() {
     
     let id = this.main.getCurrentUser().currentUser.id;
     this.settingForm = this.initForm();
+    this.changePasswordForm = this.initFormChangePassword();
     this.user = await this.main.provider.getUserById(id); 
     this.settingForm = this.initForm();
+    
+    // let option = document.getElementById(this.user.user.tag_id);
+    // option?.setAttribute('selected','true');
+    this.changePasswordForm = this.initFormChangePassword();
   }
 
   initForm() {
@@ -38,9 +48,36 @@ export class SettingsComponent implements OnInit {
       nickname : [`${this.user.user.nickname}`,[Validators.required]],
       name : [`${this.user.user.name}`,[Validators.required]],
       about_me : [`${this.user.user.about_me}`,[Validators.required]],
+      category : [`${this.user.user.tag_id}`]
     })
   }
 
+  initFormChangePassword(){
+    return this.formBuilder.group({
+      currentPassword : ['', [Validators.required]], 
+      newPassword : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)]],
+      confirmNewPassword : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)]]
+    })
+  }
+
+  async changePasswordSubmit(){
+    if(!this.changePasswordForm.valid){
+      this.main.toastr.warning("Fill in the fields correctly");
+      return;
+    }
+    let passwords = {
+      id : this.main.getCurrentUser().currentUser.id,
+      passwords : this.changePasswordForm.value,
+    }
+    let data = await this.main.provider.updatePassword(passwords);
+    if(!data.status){
+      this.main.toastr.warning(data.message);
+      return;
+    }
+    this.main.toastr.success(data.message);
+    $('#close').click();
+
+  }
 
   async submit() {
     this.settingForm.markAllAsTouched();
@@ -55,7 +92,7 @@ export class SettingsComponent implements OnInit {
     if(!this.photoChanged) urlPhoto = this.main.getCurrentUser().currentUser.photo;
     else {
       let data = await this.main.provider.sendMainInfo(this.urlImage);
-      urlPhoto = `uploads/${data.message}`;
+      urlPhoto = `http://localhost:1000/uploads/${data.message}`;
     } 
     
     let changeProfile = {
@@ -63,11 +100,13 @@ export class SettingsComponent implements OnInit {
       nickname: this.settingForm.value.nickname, 
       name : this.settingForm.value.name, 
       about_me : this.settingForm.value.about_me, 
+      tag_id : parseInt(this.settingForm.value.category),
       photo : urlPhoto, 
       email : this.main.getCurrentUser().currentUser.email,
-      oldNickname : this.main.getCurrentUser().currentUser.nickname
+      role : this.main.getCurrentUser().currentUser.role,
+      oldNickname : this.main.getCurrentUser().currentUser.nickname, 
+      user_status : this.main.getCurrentUser().currentUser.user_status,
     } 
-
 
     let data = await this.main.provider.updateProfile(changeProfile);
     if(!data.status){
@@ -80,8 +119,7 @@ export class SettingsComponent implements OnInit {
     delete changeProfile.about_me;
     this.disabledButton = false;
     sessionStorage.setItem('currentUser',JSON.stringify(changeProfile));
-    location.href = 'http://localhost:4200/profile'; 
-    
+    location.href = 'http://localhost:4200/profile';  
   }
 
 

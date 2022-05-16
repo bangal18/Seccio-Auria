@@ -1,0 +1,53 @@
+.container-noticia{
+    display:flex;
+    justify-content:space-between;
+}
+
+.noticia{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 4em;
+}
+
+.setup{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.info{
+    text-align: center;
+}
+.btn{
+    border-radius: 4em;
+}
+
+.info-img{
+    display: flex;
+    justify-content:center;
+}
+
+.dropdown-list-image{
+    display: flex;
+    align-items: center;
+}
+.dropdown-list-image p {
+    margin-top:1em;
+    margin-left: 1em;
+}
+.rounded {
+  width:50px;
+  height:50px;
+  border-radius:160px;
+}
+
+.hgroup{
+    margin: 2em 0 2em 0;
+}
+
+.icons{
+    margin-left: 1em;
+    a{
+        i{
+            font-size: 20px;
+        }
+    }
+}

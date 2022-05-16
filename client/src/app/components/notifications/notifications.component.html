@@ -1,33 +1,58 @@
-<div class="offcanvas offcanvas-start" tabindeex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div >
-        <div class="toast-container">
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <img src="..." class="rounded me-2" alt="...">
-              <strong class="me-auto">Bootstrap</strong>
-              <small class="text-muted">just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-              See? Just like this.
-            </div>
-          </div>
-
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <img src="..." class="rounded me-2" alt="...">
-              <strong class="me-auto">Bootstrap</strong>
-              <small class="text-muted">2 seconds ago</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-              Heads up, toasts will stack automatically
-            </div>
-          </div>
+<!-- <div class="offcanvas offcanvas-start" tabindeex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div >
+    <div class="container-toast">
+      <div *ngFor="let n of notifications " class="notification" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img [src]="'http://localhost:1000/' + n.photo" class="rounded-circle rounded me-2" alt="...">
+          <strong class="me-auto">@{{n.nickname}} </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
+        <div class="toast-body d-flex flex-column">
+          <span *ngIf="n.type_notification == 1">follow you</span>
+          <span *ngIf="n.type_notification == 3">liked your post</span>
+          <small class="text-muted">just now</small>
+        </div>
+      </div>
+
     </div>
+  </div>
+</div>
+-->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Notifications</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div *ngFor="let n of notifications " class="notification" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img [src]="n.photo" class="rounded-circle rounded me-2" alt="...">
+        <strong class="me-auto">@{{n.nickname}} </strong>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+      </div>
+      <div class="toast-body d-flex flex-column">
+        <div *ngIf="n.type_notification == 1" class="d-flex flex-column">
+          <span>follow you</span>
+          <small class="text-muted">{{main.calculateDate(n.creation_date)}} ago</small>
+        </div>
+        <div *ngIf="n.type_notification == 4" class="d-flex flex-column">
+          <span>We send you a random password on your email.</span>
+          <small class="text-muted">{{main.calculateDate(n.creation_date)}} ago</small>
+        </div>
+        <div *ngIf="n.type_notification == 3" class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+           <span>liked your post</span>
+           <small class="text-muted">{{main.calculateDate(n.creation_date)}} ago</small>
+         </div>   
+         <img role="button" [src]="'http://localhost:1000/' + n.main_cover" class="notification-img me-2" (click)="goToNews(n.news_id)">
+       </div>
+
+     </div>
+   </div>
+ </div>
 </div>
