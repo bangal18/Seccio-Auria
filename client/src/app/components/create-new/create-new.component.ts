@@ -152,7 +152,7 @@ async submit() {
   }
   if(this.main.getParamsNews() == undefined){
    let data = await this.main.provider.addNew(news);
-   if(!data){
+   if(!data.status){
     this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
     return;
   }
@@ -160,7 +160,7 @@ async submit() {
 else{
   news['id'] = this.editNews.id;
   let data = await this.main.provider.editNew(news);
-  if(!data){
+  if(!data.status){
     this.main.toastr.error("Hi ha hagut un error al publicar la noticia. Comprova que els camps siguin correctes.");
     return;
   }

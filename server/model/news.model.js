@@ -83,7 +83,7 @@ exports.getNewsByUserId = function (id) {
 exports.getNextXNews = function (index) {
     try{
         return new Promise((resolve, reject) =>{
-            let sql = `SELECT n.* FROM news AS n INNER JOIN users AS u ON u.id = user_id WHERE u.user_status != 2 LIMIT ?,?`;
+            let sql = `SELECT n.*, u.nickname, u.photo FROM news AS n INNER JOIN users AS u ON u.id = user_id WHERE u.user_status != 2 LIMIT ?,?`;
             
             let values = [index, NEXT_X_NEWS];
             connection.query(sql, values, function(err, result){

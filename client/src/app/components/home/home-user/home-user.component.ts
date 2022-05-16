@@ -17,8 +17,7 @@ export class HomeUserComponent implements OnInit {
   public apiNewsNoRead : any;
   public apiNewsRead : any;
   public currentUserId: any = this.main.getCurrentUser().currentUser.id;
-  public liked : boolean = false;
-  public saved : boolean = false;
+  public loading : boolean = false;
 
   constructor(public main:MainService) { }
 
@@ -45,64 +44,46 @@ export class HomeUserComponent implements OnInit {
 
 
 
- onScroll(){
-  this.loadedNextXNews();
-}
+  onScroll(){
+    this.loadedNextXNews();
+  }
 
-async loadedNextXNews() {
-  let id = 0;
-  if(this.news.length != 0) id = this.news.length ;
-  if(this.lastId == id){return;} 
-  this.lastId = id;
+  async loadedNextXNews() {
+    this.loading = true;
+    let id = 0;
+    if(this.news.length != 0) id = this.news.length ;
+    if(this.lastId == id){this.loading = false; return;} 
+    this.lastId = id;
 
-  let data = await this.main.provider.loadNextByNews(id);
-  if(data.status == 1) this.news = this.news.concat(data.content);
-  else if (data.status == 2){
-    this.apiNewsNoRead = data.mediastackAPI;
-    this.apiNewsRead = data.newsAPI;
-  } 
-  else this.main.toastr.warning(data.message);
-}
+    let data = await this.main.provider.loadNextByNews(id);
+    if(data.status == 1) this.news = this.news.concat(data.content);
+    else if (data.status == 2){
+      this.apiNewsNoRead = data.mediastackAPI;
+      this.apiNewsRead = data.newsAPI;
+    } 
+    else{ this.main.toastr.warning(data.message); return; } 
+    this.loading = false;
+  }
 
-goToNews(id:number){
-  this.main.redirectTo(`news/${id}`);
-}
+  goToNews(id:number){
+    this.main.redirectTo(`news/${id}`);
+  }
 
-async like(id:number) {
-  this.liked = true;
-  // await this.main.provider.like(this.currentUserId,id);
-}
-async unlike(id:number) {
-  this.liked = false;
+  share(id:number) {
+    let url = `http://localhost:4200/news/${id}`
+    navigator.clipboard.writeText(url);  
+    this.main.toastr.success("URL copied to the clipboard");  
+  }
 
-  // await this.main.provider.unlike(this.currentUserId,id);
-}
+  goToApiNewsRead(news:any){
+    console.log(news.content)
+    window.open(news.url,"");
 
-async unsave(id:number) {
-  this.saved = false;
-  await this.main.provider.unsave(this.currentUserId,id);
-}
-async save(id:number) {
-  this.saved = true;
-  this.main.toastr.success("News saved");
-  await this.main.provider.save(this.currentUserId,id);
-}
+  }
 
-async share(id:number) {
-  let url = `http://localhost:4200/news/${id}`
-  navigator.clipboard.writeText(url);  
-  this.main.toastr.success("URL copied to the clipboard");  
-}
+  goToApiNewsNoRead(news:any){
+    console.log(news)
+    window.open(news.url,"_blank");
 
-goToApiNewsRead(news:any){
-  console.log(news.content)
-  window.open(news.url,"");
-
-}
-
-goToApiNewsNoRead(news:any){
-  console.log(news)
-  window.open(news.url,"_blank");
-
-}
+  }
 }

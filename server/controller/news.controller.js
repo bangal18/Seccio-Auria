@@ -14,17 +14,38 @@ var newsapiAPI;
 	mediastackAPI = await apiController.mediastack();
 	newsapiAPI = await apiController.newsapi();
 }())
-/****/
+/**API PETITIONS**/
 
 exports.addNews = async function (req, res) {
-	//Validar inyección de codigo 
+	let params = [ 
+		{param : ["title", req.body.title]},
+		{param : ["subtitle", req.body.subTitle]}, 
+	]
+	let clearParams = globalFunctions.FILTER_SANITIZE_STRING(params);
+	if(!clearParams.status){
+		res.send(clearParams);
+		return;
+	}
+	req.body.title = clearParams.params.title;
+	req.body.subtitle = clearParams.params.subtitle;
 	let data = await modelNews.addNews(req.body)
 	res.send(data)
 }
 
 exports.editNews = async function (req, res){
+	let params = [ 
+		{param : ["title", req.body.title]},
+		{param : ["subtitle", req.body.subTitle]}, 
+	]
+	let clearParams = globalFunctions.FILTER_SANITIZE_STRING(params);
+	if(!clearParams.status){
+		res.send(clearParams);
+		return;
+	}
+	req.body.title = clearParams.params.title;
+	req.body.subtitle = clearParams.params.subtitle;
+	
 	let data = await modelNews.editNews(req.body);
-	// console.log(data)
 	res.send(data);
 }
 
@@ -43,7 +64,7 @@ exports.getNextXNews = async function (req, res ) {
 	let id = parseInt(req.params.index)
 	let data = await modelNews.getNextXNews(id);
 	if(data.content.length == 0) data = {status : 2, newsAPI : newsapiAPI.articles, mediastackAPI : mediastackAPI.data}	
-	res.send(data)
+		res.send(data)
 }
 
 exports.save = async function (req, res){
